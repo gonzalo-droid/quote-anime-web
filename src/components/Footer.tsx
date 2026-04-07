@@ -10,20 +10,23 @@ export default function Footer() {
           {/* Logo + name */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full bg-bgDark border border-accent/20 flex items-center justify-center">
-                      <Image
-                                          src="/images/logo_white.png"
-                                          alt="Quote Anime Logo"
-                                          width={140}
-                                          height={56}
-                                          className="h-12 w-auto object-contain"
-                                          priority
-                                        />
+              <Image
+                src="/images/logo_white.png"
+                alt="Quote Anime Logo"
+                width={140}
+                height={56}
+                className="h-12 w-auto object-contain"
+                priority
+              />
             </div>
             <span className="font-semibold text-textPrimary">Frases Anime</span>
           </div>
 
           {/* Links */}
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-2" aria-label="Footer navigation">
+          <nav
+            className="flex flex-wrap justify-center gap-x-8 gap-y-2"
+            aria-label="Footer navigation"
+          >
             <Link
               href="/privacy-policy"
               className="text-textSecondary hover:text-accent text-sm transition-colors duration-200"
@@ -40,7 +43,8 @@ export default function Footer() {
 
           {/* Platform note */}
           <p className="text-textSecondary text-xs text-center">
-            Quote Anime está disponible para Android. Versión iOS en desarrollo.
+            Quote Anime está disponible para Android. <br />
+            Versión iOS en desarrollo.
           </p>
 
           {/* Divider */}
@@ -48,7 +52,8 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-textSecondary text-xs">
-            © {new Date().getFullYear()} NekoDojo. Todos los derechos reservados.
+            © {new Date().getFullYear()} NekoDojo. Todos los derechos
+            reservados.
           </p>
 
           {/* Decorative tagline */}

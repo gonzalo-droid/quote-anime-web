@@ -66,7 +66,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
           className="text-lg md:text-xl text-textSecondary mb-12 max-w-xl mx-auto"
         >
-          Frases motivacionales del universo anime, en tu pantalla cada día
+          Frases motivacionales del universo anime, <br/>en tu pantalla cada día
         </motion.p>
 
         {/* Animated quote */}
