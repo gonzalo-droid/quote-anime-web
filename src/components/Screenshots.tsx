@@ -2,8 +2,19 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
-function PhoneMockup({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function PhoneImage({
+  src,
+  alt,
+  delay = 0,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  delay?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -13,112 +24,16 @@ function PhoneMockup({ children, delay = 0 }: { children: React.ReactNode; delay
       initial={{ opacity: 0, x: 60 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      className="relative"
+      className={className}
     >
-      {/* Phone frame */}
-      <div className="relative mx-auto w-[160px] bg-[#0A0A1A] rounded-[2.5rem] border-2 border-accent/20 shadow-2xl overflow-hidden"
-        style={{ height: "320px" }}>
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#0A0A1A] rounded-b-xl z-10" />
-        {/* Screen */}
-        <div className="absolute inset-0 overflow-hidden rounded-[2.4rem]">
-          {children}
-        </div>
-      </div>
+      <Image
+        src={src}
+        alt={alt}
+        width={160}
+        height={320}
+        className="w-[180px] md:w-[220px] h-auto drop-shadow-2xl"
+      />
     </motion.div>
-  );
-}
-
-function ScreenMain() {
-  return (
-    <div className="w-full h-full bg-gradient-to-b from-[#0F0A2E] to-[#1A0A2E] flex flex-col items-center justify-center px-4 relative">
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-[#7C3AED]/10 to-transparent" />
-      <div className="text-center">
-        <p className="font-playfair italic text-[10px] text-textPrimary leading-relaxed mb-4 opacity-90">
-          &ldquo;Si no puedes soportar lo que eres, cambia.&rdquo;
-        </p>
-        <p className="text-[8px] text-accent">— Levi Ackerman</p>
-        <p className="text-[7px] text-textSecondary">Attack on Titan</p>
-      </div>
-      <div className="absolute bottom-8 flex gap-4">
-        <div className="w-5 h-5 rounded-full bg-heart/20 border border-heart/40 flex items-center justify-center">
-          <span className="text-[8px]">❤️</span>
-        </div>
-        <div className="w-5 h-5 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
-          <span className="text-[8px]">📤</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ScreenCatalog() {
-  const categories = ["Naruto", "AOT", "Demon", "One P."];
-  const quotes = [
-    { a: "Naruto", t: "El poder de proteger..." },
-    { a: "Violet E.", t: "El futuro pertenece..." },
-    { a: "Levi", t: "Si no puedes..." },
-  ];
-
-  return (
-    <div className="w-full h-full bg-bgDark flex flex-col pt-6 px-3">
-      <p className="text-[8px] font-semibold text-textPrimary mb-3">Explorar</p>
-      <div className="flex gap-1.5 mb-3 overflow-hidden">
-        {categories.map((cat) => (
-          <span
-            key={cat}
-            className={`text-[6px] px-2 py-0.5 rounded-full whitespace-nowrap ${
-              cat === "Naruto"
-                ? "bg-accent text-bgDark font-semibold"
-                : "bg-surface border border-accent/20 text-textSecondary"
-            }`}
-          >
-            {cat}
-          </span>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2">
-        {quotes.map((q, i) => (
-          <div key={i} className="bg-surface rounded-xl p-2 border border-accent/10">
-            <p className="text-[7px] text-textSecondary mb-0.5">{q.a}</p>
-            <p className="text-[7px] text-textPrimary font-playfair italic">{q.t}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ScreenSettings() {
-  const items = [
-    { icon: "🔔", label: "Notificaciones", value: "08:00" },
-    { icon: "🖼️", label: "Widget", value: "Grande" },
-    { icon: "🌙", label: "Tema", value: "Oscuro" },
-  ];
-
-  return (
-    <div className="w-full h-full bg-bgDark flex flex-col pt-6 px-3">
-      <p className="text-[8px] font-semibold text-textPrimary mb-4">Ajustes</p>
-      <div className="flex flex-col gap-2">
-        {items.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center justify-between bg-surface rounded-xl px-3 py-2 border border-accent/10"
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-[10px]">{item.icon}</span>
-              <span className="text-[7px] text-textPrimary">{item.label}</span>
-            </div>
-            <span className="text-[6px] text-accent font-medium">{item.value}</span>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 flex justify-center">
-        <div className="bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5">
-          <p className="text-[6px] text-accent text-center">v1.1.0</p>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -164,23 +79,32 @@ export default function Screenshots() {
             </div>
           </motion.div>
 
-          {/* Mockups side */}
-          <div className="flex-1 flex items-end justify-center gap-4 md:gap-6">
-            <div className="translate-y-6">
-              <PhoneMockup delay={0.1}>
-                <ScreenCatalog />
-              </PhoneMockup>
-            </div>
-            <div className="-translate-y-2">
-              <PhoneMockup delay={0}>
-                <ScreenMain />
-              </PhoneMockup>
-            </div>
-            <div className="translate-y-6 hidden sm:block">
-              <PhoneMockup delay={0.2}>
-                <ScreenSettings />
-              </PhoneMockup>
-            </div>
+          {/* Screenshots side */}
+          <div className="flex-1 flex items-end justify-center gap-3 md:gap-5">
+            <PhoneImage
+              src="/images/splash_app.png"
+              alt="Pantalla de inicio"
+              delay={0.1}
+              className="translate-y-8 hidden sm:block"
+            />
+            <PhoneImage
+              src="/images/onboarding_app.png"
+              alt="Onboarding"
+              delay={0.2}
+              className="translate-y-3"
+            />
+            <PhoneImage
+              src="/images/quote_app.png"
+              alt="Frase del día"
+              delay={0}
+              className="-translate-y-3"
+            />
+            <PhoneImage
+              src="/images/setting_app.png"
+              alt="Ajustes"
+              delay={0.3}
+              className="translate-y-3 hidden sm:block"
+            />
           </div>
         </div>
       </div>
