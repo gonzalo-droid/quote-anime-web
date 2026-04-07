@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0C0C1E;
+  color: #F0EAFF;
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 24px rgba(167, 139, 250, 0.4);
+  }
+
+  .glow-purple-sm {
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+  }
+}
