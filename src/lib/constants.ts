@@ -3,6 +3,8 @@ export const PLAY_STORE_URL =
 
 export const CONTACT_EMAIL = "contacto@gondroid.dev";
 
+export const INSTAGRAM_URL = "https://www.instagram.com/animequoteapp/";
+
 export const HERO_QUOTES = [
   {
     text: "El verdadero poder no es destruir, sino proteger lo que amas.",

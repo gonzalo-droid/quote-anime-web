@@ -84,7 +84,7 @@ export default function Screenshots() {
 
         {/* — Bloque 2: imágenes con scroll horizontal — */}
         {/* -mx extiende el scroll edge-to-edge; px restaura el padding visual */}
-        <div className="overflow-x-auto scrollbar-none -mx-0 px-6">
+        <div className="overflow-x-auto scrollbar-none flex justify-center px-6">
           <div className="flex items-end gap-5 min-w-max px-2 pb-8">
             <PhoneImage
               src="/images/splash_app.png"
