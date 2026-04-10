@@ -87,20 +87,20 @@ export default function Screenshots() {
         <div className="overflow-x-auto scrollbar-none flex justify-center px-6">
           <div className="flex items-end gap-5 min-w-max px-2 pb-8">
             <PhoneImage
-              src="/images/splash_app.png"
-              alt="Pantalla de inicio"
+              src="/images/home_app.png"
+              alt="Home"
               delay={0.1}
               className="translate-y-8"
             />
             <PhoneImage
-              src="/images/onboarding_app.png"
-              alt="Onboarding"
+              src="/images/category_app.png"
+              alt="Categorías"
               delay={0.2}
               className="translate-y-4"
             />
             <PhoneImage
-              src="/images/quote_app.png"
-              alt="Frase del día"
+              src="/images/quotes_app.png"
+              alt="Frases"
               delay={0}
               className="-translate-y-2"
             />
@@ -109,7 +109,7 @@ export default function Screenshots() {
               alt="Ajustes"
               delay={0.3}
               className="translate-y-4"
-            />
+            />        
           </div>
         </div>
 
