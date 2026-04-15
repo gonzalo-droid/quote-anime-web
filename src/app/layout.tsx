@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://quoteanime.app"),
   title: "Quote Anime — Frases del universo anime",
   description:
-    "Frases motivacionales del universo anime para Android. Notificaciones, widget, favoritos y más. iOS próximamente.",
+    "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
   openGraph: {
     title: "Quote Anime",
     description: "Frases del universo anime en tu pantalla cada día.",

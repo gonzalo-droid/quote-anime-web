@@ -55,8 +55,7 @@ export default function Footer() {
 
           {/* Platform note */}
           <p className="text-textSecondary text-xs text-center">
-            Quote Anime está disponible para Android. <br />
-            Versión iOS en desarrollo.
+            Quote Anime está disponible para Android e iOS.
           </p>
 
           {/* Divider */}

@@ -28,5 +28,5 @@ Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion. Single-page mark
 
 - Dark mode only — `#0C0C1E` background, `#A78BFA` accent. Never add a light mode toggle.
 - Play Store URL: `https://play.google.com/store/apps/details?id=com.gondroid.quoteanime`
-- App Store badge must remain disabled (grayscale, opacity-40, cursor-not-allowed) — iOS not yet released.
+- App Store URL: `https://apps.apple.com/pe/app/quoteanime-frases-de-anime/id6762100338?l=en-GB`
 - `metadataBase` is set to `https://quoteanime.app` in `layout.tsx` for OG image resolution.

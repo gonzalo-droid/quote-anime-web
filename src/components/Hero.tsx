@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HERO_QUOTES, PLAY_STORE_URL } from "@/lib/constants";
+import { HERO_QUOTES } from "@/lib/constants";
 import Image from "next/image";
+import StoreBadges from "./StoreBadges";
 
 export default function Hero() {
   const [quoteIndex, setQuoteIndex] = useState(0);
@@ -115,32 +116,22 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* Store badges */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <motion.a
-            href={PLAY_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-bgDark font-semibold px-8 py-4 rounded-xl transition-colors duration-200 glow-purple text-base"
-          >
-                      <Image
-                            src="/images/google_play_store.png"
-                            alt="Quote Anime Logo"
-                            width={30}
-                            height={30}
-                            className="w-auto object-contain"
-                            priority
-                          />
-            Descargar en Google Play
-          </motion.a>
+          <StoreBadges showCaptions={false} />
+        </motion.div>
 
+        {/* Secondary CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
+          className="mt-8 flex justify-center"
+        >
           <motion.a
             href="#features"
             whileHover={{ scale: 1.05 }}
