@@ -4,10 +4,16 @@ import { motion } from "framer-motion";
 import { INSTAGRAM_URL } from "@/lib/constants";
 import StoreBadges from "./StoreBadges";
 
+const TRUST_POINTS = [
+  "Sin anuncios intrusivos",
+  "Actualizaciones semanales de frases",
+  "Gratis, sin registro",
+];
+
 
 export default function Download() {
   return (
-    <section id="download" className="py-24 px-6 relative">
+    <section id="download" className="py-24 px-6 relative scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-b from-bgDark via-[#0F0A2E]/30 to-bgDark pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -30,32 +36,47 @@ export default function Download() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
+          className="bg-surface/60 border border-accent/10 rounded-3xl px-6 py-10 md:px-12 md:py-12 glow-purple-sm"
         >
           <StoreBadges />
-        </motion.div>
 
-        {/* Note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 text-textSecondary text-sm max-w-md mx-auto"
-        >
-          Disponible ahora para Android y iOS. ¡Descarga Quote Anime en tu
-          tienda favorita!
-        </motion.p>
+          {/* Trust points */}
+          <ul className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center gap-x-8 gap-y-3">
+            {TRUST_POINTS.map((point) => (
+              <li
+                key={point}
+                className="flex items-center justify-center gap-2 text-textSecondary text-sm"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-accent shrink-0"
+                  aria-hidden="true"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                {point}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-6 flex justify-center"
+          className="mt-8 flex justify-center"
         >
           <a
             href={INSTAGRAM_URL}

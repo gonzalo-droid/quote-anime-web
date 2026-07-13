@@ -17,16 +17,14 @@ export default function PrivacyPolicy() {
         <header className="border-b border-accent/10 bg-surface/30 backdrop-blur-sm sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded-full bg-bgDark border border-accent/20 group-hover:border-accent/40 flex items-center justify-center transition-colors duration-200">
-                <Image
-                  src="/images/logo_white.png"
-                  alt="Quote Anime Logo"
-                  width={140}
-                  height={56}
-                  className="h-12 w-auto object-contain"
-                  priority
-                />
-              </div>
+              <Image
+                src="/images/logo_white.png"
+                alt="Quote Anime Logo"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain"
+                priority
+              />
               <span className="font-semibold text-textPrimary group-hover:text-accent transition-colors duration-200">
                 Frases Anime
               </span>

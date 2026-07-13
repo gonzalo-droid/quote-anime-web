@@ -8,13 +8,15 @@ import StoreBadges from "./StoreBadges";
 
 export default function Hero() {
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
       setQuoteIndex((prev) => (prev + 1) % HERO_QUOTES.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
 
   const currentQuote = HERO_QUOTES[quoteIndex];
 
@@ -35,18 +37,14 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex justify-center mb-8"
         >
-          <div className="w-24 h-24 rounded-full bg-surface border border-accent/20 flex items-center justify-center glow-purple-sm">
-            
-             <Image
-                            src="/images/logo_white.png"
-                            alt="Quote Anime Logo"
-                            width={140}
-                            height={56}
-                            className="h-12 w-auto object-contain"
-                            priority
-                          />
-
-          </div>
+          <Image
+            src="/images/logo_white.png"
+            alt="Quote Anime Logo"
+            width={80}
+            height={80}
+            className="h-20 w-20 object-contain drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]"
+            priority
+          />
         </motion.div>
 
         {/* Title */}
@@ -77,7 +75,13 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
           className="relative min-h-[140px] md:min-h-[120px] mb-12 flex items-center justify-center"
         >
-          <div className="w-full max-w-2xl mx-auto bg-surface/60 border border-accent/10 rounded-2xl px-8 py-6 backdrop-blur-sm">
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
+            className="w-full max-w-2xl mx-auto bg-surface/60 border border-accent/10 rounded-2xl px-8 py-6 backdrop-blur-sm"
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={quoteIndex}
@@ -145,6 +149,32 @@ export default function Hero() {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.a
+        href="#features"
+        aria-label="Desplázate para ver más"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7, delay: 1.1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-textSecondary hover:text-accent transition-colors duration-200"
+      >
+        <motion.svg
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </motion.svg>
+      </motion.a>
     </section>
   );
 }

@@ -2,12 +2,30 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PLAY_STORE_URL, APP_STORE_URL } from "@/lib/constants";
+import { PLAY_STORE_URL, APP_STORE_URL, RATINGS } from "@/lib/constants";
 
 type Props = {
   showDivider?: boolean;
   showCaptions?: boolean;
 };
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <span className="inline-flex items-center gap-1 text-textSecondary text-xs">
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="text-accent"
+        aria-hidden="true"
+      >
+        <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6z" />
+      </svg>
+      {rating.toFixed(1)}
+    </span>
+  );
+}
 
 export default function StoreBadges({
   showDivider = true,
@@ -46,8 +64,9 @@ export default function StoreBadges({
           </div>
         </motion.a>
         {showCaptions && (
-          <span className="text-textSecondary text-sm">
+          <span className="flex items-center gap-2 text-textSecondary text-sm">
             Gratis · Android 7.0+
+            <StarRating rating={RATINGS.googlePlay} />
           </span>
         )}
       </div>
@@ -90,7 +109,10 @@ export default function StoreBadges({
           </div>
         </motion.a>
         {showCaptions && (
-          <span className="text-textSecondary text-sm">Gratis · iOS</span>
+          <span className="flex items-center gap-2 text-textSecondary text-sm">
+            Gratis · iOS
+            <StarRating rating={RATINGS.appStore} />
+          </span>
         )}
       </div>
     </div>

@@ -69,3 +69,14 @@ export const FEATURES = [
 ];
 
 export const SITE_URL = "https://quoteanime.app";
+
+export const RATINGS = {
+  googlePlay: 4.5,
+  appStore: 4.5,
+};
+
+export const NAV_LINKS = [
+  { href: "#features", label: "Características" },
+  { href: "#screenshots", label: "Capturas" },
+  { href: "#download", label: "Descargar" },
+];

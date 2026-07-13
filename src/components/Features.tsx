@@ -9,7 +9,7 @@ export default function Features() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="features" className="py-24 px-6 relative">
+    <section id="features" className="py-24 px-6 relative scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-b from-bgDark via-surface/20 to-bgDark pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">
@@ -34,35 +34,46 @@ export default function Features() {
           ref={ref}
           className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
         >
-          {FEATURES.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: "easeOut",
-              }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group relative bg-surface border border-accent/10 hover:border-accent/30 rounded-2xl p-6 transition-colors duration-300"
-            >
-              {/* Glow on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          {FEATURES.map((feature, index) => {
+            const isFavorites = feature.title === "Favoritos offline";
+            return (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.1,
+                  ease: "easeOut",
+                }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className={`group relative bg-surface rounded-2xl p-6 transition-colors duration-300 border ${
+                  isFavorites
+                    ? "border-heart/20 hover:border-heart/40"
+                    : "border-accent/10 hover:border-accent/30"
+                }`}
+              >
+                {/* Glow on hover */}
+                <div
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-br to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${
+                    isFavorites ? "from-heart/10" : "from-accent/5"
+                  }`}
+                />
 
-              <div className="relative">
-                <span className="text-3xl mb-4 block" role="img" aria-label={feature.title}>
-                  {feature.emoji}
-                </span>
-                <h3 className="text-textPrimary font-semibold text-base md:text-lg mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-textSecondary text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                <div className="relative">
+                  <span className="text-3xl mb-4 block" role="img" aria-label={feature.title}>
+                    {feature.emoji}
+                  </span>
+                  <h3 className="text-textPrimary font-semibold text-base md:text-lg mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-textSecondary text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

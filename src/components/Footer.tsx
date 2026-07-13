@@ -9,16 +9,13 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-6">
           {/* Logo + name */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-bgDark border border-accent/20 flex items-center justify-center">
-              <Image
-                src="/images/logo_white.png"
-                alt="Quote Anime Logo"
-                width={140}
-                height={56}
-                className="h-12 w-auto object-contain"
-                priority
-              />
-            </div>
+            <Image
+              src="/images/logo_white.png"
+              alt="Quote Anime Logo"
+              width={36}
+              height={36}
+              className="h-9 w-9 object-contain"
+            />
             <span className="font-semibold text-textPrimary">Frases Anime</span>
           </div>
 
