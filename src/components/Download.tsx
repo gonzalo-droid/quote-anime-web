@@ -44,17 +44,29 @@ export default function Download() {
         >
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             <StoreBadges />
-            <div className="hidden md:flex flex-col items-center gap-2 bg-white rounded-2xl p-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/qr-download.svg"
-                alt="Código QR para descargar Quote Anime"
-                width={120}
-                height={120}
-              />
-              <span className="text-bgDark text-xs font-medium">
-                Escanéalo con tu móvil
-              </span>
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex flex-col items-center gap-2 bg-white rounded-2xl p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/qr-google-play.svg"
+                  alt="Código QR para descargar Quote Anime en Google Play"
+                  width={96}
+                  height={96}
+                />
+                <span className="text-bgDark text-xs font-medium">
+                  Android
+                </span>
+              </div>
+              <div className="flex flex-col items-center gap-2 bg-white rounded-2xl p-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/qr-app-store.svg"
+                  alt="Código QR para descargar Quote Anime en App Store"
+                  width={96}
+                  height={96}
+                />
+                <span className="text-bgDark text-xs font-medium">iOS</span>
+              </div>
             </div>
           </div>
 
