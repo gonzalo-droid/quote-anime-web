@@ -93,25 +93,25 @@ export default function Screenshots() {
             <div className="flex items-end gap-5 min-w-max px-2 pb-8">
             <PhoneImage
               src="/images/home_app.png"
-              alt="Home"
+              alt="Pantalla principal de Quote Anime mostrando una frase de anime a pantalla completa"
               delay={0.1}
               className="translate-y-8"
             />
             <PhoneImage
               src="/images/category_app.png"
-              alt="Categorías"
+              alt="Catálogo de frases de Quote Anime filtrado por anime"
               delay={0.2}
               className="translate-y-4"
             />
             <PhoneImage
               src="/images/quotes_app.png"
-              alt="Frases"
+              alt="Lista de frases favoritas guardadas en Quote Anime"
               delay={0}
               className="-translate-y-2"
             />
             <PhoneImage
               src="/images/setting_app.png"
-              alt="Ajustes"
+              alt="Ajustes de notificaciones y widget en Quote Anime"
               delay={0.3}
               className="translate-y-4"
             />
