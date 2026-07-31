@@ -19,19 +19,30 @@ export const metadata: Metadata = {
   title: "Quote Anime — Frases del universo anime",
   description:
     "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
+  keywords: [
+    "frases anime",
+    "quotes anime",
+    "app frases anime",
+    "widget anime",
+    "notificaciones anime",
+    "frases motivacionales anime",
+  ],
+  alternates: {
+    canonical: "https://quoteanime.app",
+  },
   openGraph: {
     title: "Quote Anime",
     description: "Frases del universo anime en tu pantalla cada día.",
     url: "https://quoteanime.app",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     type: "website",
+    locale: "es_PE",
   },
   twitter: {
     card: "summary_large_image",
     title: "Quote Anime",
     description: "Frases motivacionales del universo anime.",
   },
-    icons: {
+  icons: {
     icon: "/images/favicon.ico",
   },
   robots: {
