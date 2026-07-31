@@ -34,7 +34,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex justify-center mb-8"
         >
           <Image
@@ -51,7 +51,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.08, ease: "easeOut" }}
           className="text-5xl md:text-7xl font-bold text-textPrimary mb-4 tracking-tight"
         >
           Frases{" "}
@@ -62,7 +62,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.14, ease: "easeOut" }}
           className="text-lg md:text-xl text-textSecondary mb-12 max-w-xl mx-auto"
         >
           Frases motivacionales del universo anime, <br/>en tu pantalla cada día
@@ -72,7 +72,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
           className="relative min-h-[140px] md:min-h-[120px] mb-12 flex items-center justify-center"
         >
           <div
@@ -124,7 +124,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.26, ease: "easeOut" }}
         >
           <StoreBadges showCaptions={false} />
         </motion.div>
@@ -133,7 +133,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.32, ease: "easeOut" }}
           className="mt-8 flex justify-center"
         >
           <motion.a
@@ -156,7 +156,7 @@ export default function Hero() {
         aria-label="Desplázate para ver más"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 1.1 }}
+        transition={{ duration: 0.45, delay: 0.45 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-textSecondary hover:text-accent transition-colors duration-200"
       >
         <motion.svg
