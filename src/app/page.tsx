@@ -6,6 +6,7 @@ import Screenshots from "@/components/Screenshots";
 import FAQ from "@/components/FAQ";
 import Download from "@/components/Download";
 import Footer from "@/components/Footer";
+import StickyDownloadBar from "@/components/StickyDownloadBar";
 import {
   PLAY_STORE_URL,
   APP_STORE_URL,
@@ -47,6 +48,7 @@ export default function Home() {
       <FAQ />
       <Download />
       <Footer />
+      <StickyDownloadBar />
     </main>
   );
 }
