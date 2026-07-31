@@ -42,7 +42,21 @@ export default function Download() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="bg-surface/60 border border-accent/10 rounded-3xl px-6 py-10 md:px-12 md:py-12 glow-purple-sm"
         >
-          <StoreBadges />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <StoreBadges />
+            <div className="hidden md:flex flex-col items-center gap-2 bg-white rounded-2xl p-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/qr-download.svg"
+                alt="Código QR para descargar Quote Anime"
+                width={120}
+                height={120}
+              />
+              <span className="text-bgDark text-xs font-medium">
+                Escanéalo con tu móvil
+              </span>
+            </div>
+          </div>
 
           {/* Trust points */}
           <ul className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center gap-x-8 gap-y-3">
