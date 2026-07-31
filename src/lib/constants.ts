@@ -80,3 +80,31 @@ export const NAV_LINKS = [
   { href: "#screenshots", label: "Capturas" },
   { href: "#download", label: "Descargar" },
 ];
+
+export const FAQ_ITEMS = [
+  {
+    question: "¿Quote Anime es gratis?",
+    answer:
+      "Sí, Quote Anime es completamente gratis para descargar y usar, sin necesidad de registro.",
+  },
+  {
+    question: "¿Tiene anuncios?",
+    answer:
+      "No mostramos anuncios intrusivos. La app está pensada para que disfrutes las frases sin interrupciones.",
+  },
+  {
+    question: "¿Cómo funcionan las notificaciones?",
+    answer:
+      "Puedes elegir recibir de 1 a 10 frases al día, en el rango horario que prefieras, para no molestarte de noche.",
+  },
+  {
+    question: "¿Puedo guardar frases sin conexión a internet?",
+    answer:
+      "Sí, tus frases favoritas se guardan offline y puedes acceder a ellas en cualquier momento, sin necesidad de conexión.",
+  },
+  {
+    question: "¿Qué pasa con mis datos y mi privacidad?",
+    answer:
+      "No pedimos registro ni datos personales para usar la app. Puedes revisar el detalle completo en nuestra Política de Privacidad.",
+  },
+];
