@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Volumes/Neko/webs/quote-anime/docs/superpowers/specs && ls /Volumes/Neko/webs/quote-anime/docs/superpowers/specs 2>/dev/null)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ],
+    "additionalDirectories": [
+      "/Volumes/Neko/webs/quote-anime/docs/superpowers"
+    ]
+  }
+}
