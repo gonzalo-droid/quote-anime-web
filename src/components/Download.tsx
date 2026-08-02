@@ -42,33 +42,7 @@ export default function Download() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="bg-surface/60 border border-accent/10 rounded-3xl px-6 py-10 md:px-12 md:py-12 glow-purple-sm"
         >
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
-            <StoreBadges />
-            <div className="hidden md:flex items-center gap-4">
-              <div className="flex flex-col items-center gap-2 bg-white rounded-2xl p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/qr-google-play.svg"
-                  alt="Código QR para descargar Quote Anime en Google Play"
-                  width={96}
-                  height={96}
-                />
-                <span className="text-bgDark text-xs font-medium">
-                  Android
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-2 bg-white rounded-2xl p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/qr-app-store.svg"
-                  alt="Código QR para descargar Quote Anime en App Store"
-                  width={96}
-                  height={96}
-                />
-                <span className="text-bgDark text-xs font-medium">iOS</span>
-              </div>
-            </div>
-          </div>
+          <StoreBadges showQr />
 
           {/* Trust points */}
           <ul className="mt-10 flex flex-col sm:flex-row flex-wrap justify-center gap-x-8 gap-y-3">
