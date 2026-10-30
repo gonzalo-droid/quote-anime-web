@@ -34,6 +34,7 @@ function ShareCards() {
           alt="Tarjeta con una frase de Satoru Gojo sobre el amor, de Jujutsu Kaisen"
           width={210}
           height={263}
+          sizes="(min-width: 640px) 190px, 150px"
           className="h-auto w-[150px] sm:w-[190px]"
         />
       </div>
@@ -43,6 +44,7 @@ function ShareCards() {
           alt="Tarjeta con una frase de Wasuke Itadori sobre ayudar, de Jujutsu Kaisen"
           width={210}
           height={263}
+          sizes="(min-width: 640px) 190px, 150px"
           className="h-auto w-[150px] sm:w-[190px]"
         />
       </div>
