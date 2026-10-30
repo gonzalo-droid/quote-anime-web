@@ -14,14 +14,14 @@ npm run lint     # ESLint check
 
 Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion. Single-page marketing site with one additional route.
 
-**Data flow:** All static content lives in `src/lib/constants.ts` (quotes, features, URLs). Components import from there — no API calls, no state management library.
+**Data flow:** All static content lives in `src/lib/constants.ts` (hero screens, FAQ, nav links, URLs). Components import from there — no API calls, no state management library.
 
-**Animations:** All Framer Motion usage is in client components (`"use client"`). Page-level animations use `useInView` + `AnimatePresence`. The hero phone cycles through `HERO_SCREENS` every 4.5s via `setInterval` (paused on hover/focus, off with reduced motion).
+**Animations:** All Framer Motion usage is in client components (`"use client"`). Motion is deliberately minimal: the hero entrance and phone rotation, plus the FAQ accordion (`AnimatePresence`). `AppShowcase` and `Download` are static server components, so don't add per-section scroll reveals. The hero phone cycles through `HERO_SCREENS` every 4.5s via `setInterval` (paused on hover/focus, off with reduced motion).
 
 **Styling:** Light by default with an optional dark theme (`ThemeToggle` in the header adds `.dark` to `<html>` and saves `theme` in localStorage; an inline script in `layout.tsx` applies it before first paint). Custom Tailwind colors (`canvas`, `accent`, `textPrimary`, `textSecondary`, `heart`, `surface`) resolve to CSS variables defined per theme in `globals.css`, so never hardcode hex colors in components. Restart the dev server after editing `tailwind.config.ts`. Two font variables (`--font-playfair`, `--font-inter`) set in `layout.tsx` and consumed via `font-playfair` / `font-inter` Tailwind classes.
 
 **Routes:**
-- `/` — landing with Hero → Features → Screenshots → Download → Footer
+- `/` — landing with Hero → AppShowcase (share, notifications, widget) → FAQ → Download → Footer
 - `/privacy-policy` — static legal page with its own header (no shared nav component)
 
 ## Key constraints

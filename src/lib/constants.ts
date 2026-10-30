@@ -29,45 +29,6 @@ export const HERO_SCREENS = [
   },
 ];
 
-export const FEATURES = [
-  {
-    emoji: "📖",
-    title: "Frases full-screen con swipe",
-    description:
-      "Desliza verticalmente para descubrir una frase tras otra, con gradientes animados y arte de fondo.",
-  },
-  {
-    emoji: "🗂️",
-    title: "Catálogo por anime",
-    description:
-      "Explora y filtra frases por tu anime favorito o navega solo entre las que marcaste.",
-  },
-  {
-    emoji: "❤️",
-    title: "Favoritos offline",
-    description:
-      "Guarda tus frases con una animación spring y accede a ellas sin conexión cuando quieras.",
-  },
-  {
-    emoji: "🔔",
-    title: "Notificaciones inteligentes",
-    description:
-      "De 1 a 10 frases al día en el rango horario que elijas. No te molesta de noche.",
-  },
-  {
-    emoji: "🖼️",
-    title: "Widget en 3 tamaños",
-    description:
-      "Añade el widget a tu home screen, refresca la frase con un toque y configura hasta 8 updates al día.",
-  },
-  {
-    emoji: "📤",
-    title: "Comparte como imagen",
-    description:
-      "Genera una tarjeta visual con gradiente, comilla decorativa, autor y anime. Lista para WhatsApp o IG.",
-  },
-];
-
 export const SITE_URL = "https://quoteanime.app";
 
 export const RATINGS = {
@@ -76,8 +37,8 @@ export const RATINGS = {
 };
 
 export const NAV_LINKS = [
-  { href: "#features", label: "Características" },
-  { href: "#screenshots", label: "Capturas" },
+  { href: "#app", label: "La app" },
+  { href: "#faq", label: "Preguntas" },
   { href: "#download", label: "Descargar" },
 ];
 
