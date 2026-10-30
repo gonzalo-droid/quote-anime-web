@@ -1,6 +1,11 @@
 import type { Config } from "tailwindcss";
 
+// Colors resolve to CSS variables (RGB channels) defined in globals.css so
+// the same utility classes work in light and dark, including opacity (accent/10).
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,12 +14,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bgDark: "#0C0C1E",
-        accent: "#A78BFA",
-        textPrimary: "#F0EAFF",
-        textSecondary: "#9B8DB3",
-        heart: "#FF6B8A",
-        surface: "#181A2E",
+        canvas: token("canvas"),
+        accent: token("accent"),
+        textPrimary: token("text-primary"),
+        textSecondary: token("text-secondary"),
+        heart: token("heart"),
+        surface: token("surface"),
       },
       fontFamily: {
         playfair: ["var(--font-playfair)", "Georgia", "serif"],

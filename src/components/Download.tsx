@@ -14,7 +14,7 @@ const TRUST_POINTS = [
 export default function Download() {
   return (
     <section id="download" className="py-24 px-6 relative scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-bgDark via-[#0F0A2E]/30 to-bgDark pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-canvas via-accent/5 to-canvas pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-3xl mx-auto text-center">

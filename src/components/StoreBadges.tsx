@@ -8,6 +8,7 @@ type Props = {
   showDivider?: boolean;
   showCaptions?: boolean;
   showQr?: boolean;
+  align?: "center" | "start";
 };
 
 function StarRating({ rating }: { rating: number }) {
@@ -32,9 +33,16 @@ export default function StoreBadges({
   showDivider = true,
   showCaptions = true,
   showQr = false,
+  align = "center",
 }: Props) {
   return (
-    <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
+    <div
+      className={
+        align === "start"
+          ? "flex flex-col sm:flex-row justify-start items-start sm:items-center gap-4"
+          : "flex flex-col sm:flex-row justify-center items-center gap-8"
+      }
+    >
       {/* Google Play badge */}
       <div className="flex flex-col items-center gap-3">
         <div className="flex items-center gap-3">

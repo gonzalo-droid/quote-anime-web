@@ -48,7 +48,7 @@ export default function StickyDownloadBar() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Descargar en Google Play"
-              className="bg-accent text-bgDark text-xs font-semibold px-3 py-2 rounded-lg"
+              className="bg-accent text-canvas text-xs font-semibold px-3 py-2 rounded-lg"
             >
               Google Play
             </a>

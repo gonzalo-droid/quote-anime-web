@@ -16,9 +16,9 @@ Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion. Single-page mark
 
 **Data flow:** All static content lives in `src/lib/constants.ts` (quotes, features, URLs). Components import from there — no API calls, no state management library.
 
-**Animations:** All Framer Motion usage is in client components (`"use client"`). Page-level animations use `useInView` + `AnimatePresence`. The hero quote rotates every 4s via `setInterval`.
+**Animations:** All Framer Motion usage is in client components (`"use client"`). Page-level animations use `useInView` + `AnimatePresence`. The hero phone cycles through `HERO_SCREENS` every 4.5s via `setInterval` (paused on hover/focus, off with reduced motion).
 
-**Styling:** Dark-only (no theme toggle). Custom Tailwind colors (`bgDark`, `accent`, `textPrimary`, `textSecondary`, `heart`, `surface`) defined in `tailwind.config.ts`. Two font variables (`--font-playfair`, `--font-inter`) set in `layout.tsx` and consumed via `font-playfair` / `font-inter` Tailwind classes.
+**Styling:** Light by default with an optional dark theme (`ThemeToggle` in the header adds `.dark` to `<html>` and saves `theme` in localStorage; an inline script in `layout.tsx` applies it before first paint). Custom Tailwind colors (`canvas`, `accent`, `textPrimary`, `textSecondary`, `heart`, `surface`) resolve to CSS variables defined per theme in `globals.css`, so never hardcode hex colors in components. Restart the dev server after editing `tailwind.config.ts`. Two font variables (`--font-playfair`, `--font-inter`) set in `layout.tsx` and consumed via `font-playfair` / `font-inter` Tailwind classes.
 
 **Routes:**
 - `/` — landing with Hero → Features → Screenshots → Download → Footer
@@ -26,7 +26,7 @@ Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion. Single-page mark
 
 ## Key constraints
 
-- Dark mode only — `#0C0C1E` background, `#A78BFA` accent. Never add a light mode toggle.
+- Two themes: light (default; `#F7F4FF` canvas, `#6D4AE0` accent) and dark (`#0C0C1E` canvas, `#A78BFA` accent). Both must stay readable (accent is darker in light for contrast).
 - Play Store URL: `https://play.google.com/store/apps/details?id=com.gondroid.quoteanime`
 - App Store URL: `https://apps.apple.com/pe/app/quoteanime-frases-de-anime/id6762100338?l=en-GB`
 - `metadataBase` is set to `https://quoteanime.app` in `layout.tsx` for OG image resolution.

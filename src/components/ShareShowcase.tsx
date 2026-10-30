@@ -23,9 +23,9 @@ export default function ShareShowcase() {
     <section className="py-24 px-6 relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-bgDark via-surface/10 to-bgDark" />
+        <div className="absolute inset-0 bg-gradient-to-b from-canvas via-surface/10 to-canvas" />
         <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2" />
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-[#FF6B8A]/5 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-heart/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
       <div className="relative max-w-6xl mx-auto">
@@ -128,7 +128,7 @@ export default function ShareShowcase() {
                 ease: "easeInOut",
                 delay: 0.5,
               }}
-              className="absolute bottom-8 left-4 w-2 h-2 rounded-full bg-[#FF6B8A]/60 blur-sm"
+              className="absolute bottom-8 left-4 w-2 h-2 rounded-full bg-heart/60 blur-sm"
             />
           </div>
         </div>

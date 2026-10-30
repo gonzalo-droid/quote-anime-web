@@ -11,21 +11,21 @@ export const INSTAGRAM_URL = "https://www.instagram.com/animequoteapp/";
 export const FACEBOOK_URL =
   "https://www.facebook.com/share/1Ay18mtNZh/?mibextid=wwXIfr";
 
-export const HERO_QUOTES = [
+export const HERO_SCREENS = [
   {
-    text: "El verdadero poder no es destruir, sino proteger lo que amas.",
-    author: "Naruto Uzumaki",
-    anime: "Naruto",
+    label: "Frases",
+    src: "/images/home_app.png",
+    alt: "Pantalla principal de Quote Anime mostrando una frase de anime a pantalla completa",
   },
   {
-    text: "Si no puedes soportar lo que eres, cambia.",
-    author: "Levi Ackerman",
-    anime: "Attack on Titan",
+    label: "Explorar",
+    src: "/images/category_app.png",
+    alt: "Pantalla Explorar de Quote Anime con frases agrupadas por emoción",
   },
   {
-    text: "El futuro pertenece a quienes creen en la belleza de sus sueños.",
-    author: "Violet Evergarden",
-    anime: "Violet Evergarden",
+    label: "Favoritas",
+    src: "/images/quotes_app.png",
+    alt: "Lista de frases favoritas guardadas en Quote Anime",
   },
 ];
 

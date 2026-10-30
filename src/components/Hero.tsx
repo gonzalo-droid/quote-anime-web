@@ -1,180 +1,112 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { HERO_QUOTES } from "@/lib/constants";
+import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { HERO_SCREENS } from "@/lib/constants";
 import StoreBadges from "./StoreBadges";
 
+const ROTATE_MS = 4500;
+
 export default function Hero() {
-  const [quoteIndex, setQuoteIndex] = useState(0);
+  const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % HERO_QUOTES.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
-  const currentQuote = HERO_QUOTES[quoteIndex];
+    if (isPaused || reduceMotion) return;
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % HERO_SCREENS.length);
+    }, ROTATE_MS);
+    return () => clearInterval(timer);
+  }, [isPaused, reduceMotion]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-bgDark via-[#0F0A2E] to-[#1A0A2E]" />
+    <MotionConfig reducedMotion="user">
+      <section className="relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 py-12 lg:py-0 lg:min-h-[calc(100svh-61px)] grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Copy */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="text-left"
+          >
+            <h1 className="font-playfair text-[2.75rem] sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-textPrimary text-balance">
+              Frases del universo anime, en tu pantalla cada día
+            </h1>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-textSecondary">
+              Desliza, guarda tus favoritas y recíbelas en notificaciones o en
+              tu widget. Gratis y sin registro.
+            </p>
+            <div className="mt-10">
+              <StoreBadges align="start" showDivider={false} showCaptions={false} />
+            </div>
+          </motion.div>
 
-      {/* Decorative blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#7C3AED]/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex justify-center mb-8"
-        >
-          <Image
-            src="/images/logo_white.png"
-            alt="Quote Anime Logo"
-            width={80}
-            height={80}
-            className="h-20 w-20 object-contain drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]"
-            priority
-          />
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.08, ease: "easeOut" }}
-          className="text-5xl md:text-7xl font-bold text-textPrimary mb-4 tracking-tight"
-        >
-          Frases{" "}
-          <span className="text-gradient">Anime</span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.14, ease: "easeOut" }}
-          className="text-lg md:text-xl text-textSecondary mb-12 max-w-xl mx-auto"
-        >
-          Frases motivacionales del universo anime, <br/>en tu pantalla cada día
-        </motion.p>
-
-        {/* Animated quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
-          className="relative min-h-[140px] md:min-h-[120px] mb-12 flex items-center justify-center"
-        >
-          <div
+          {/* Phone */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onFocus={() => setIsPaused(true)}
             onBlur={() => setIsPaused(false)}
-            className="w-full max-w-2xl mx-auto bg-surface/60 border border-accent/10 rounded-2xl px-8 py-6 backdrop-blur-sm"
+            className="relative flex flex-col items-center"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={quoteIndex}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              >
-                <p className="font-playfair italic text-lg md:text-xl text-textPrimary leading-relaxed mb-3">
-                  &ldquo;{currentQuote.text}&rdquo;
-                </p>
-                <p className="text-sm text-accent font-medium">
-                  — {currentQuote.author}{" "}
-                  <span className="text-textSecondary font-normal">
-                    · {currentQuote.anime}
-                  </span>
-                </p>
-              </motion.div>
-            </AnimatePresence>
+            {/* Flat disc behind the phone */}
+            <div
+              className="pointer-events-none absolute left-1/2 top-[44%] h-[300px] w-[300px] sm:h-[400px] sm:w-[400px] lg:h-[460px] lg:w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10"
+              aria-hidden="true"
+            />
 
-            {/* Quote dots indicator */}
-            <div className="flex justify-center gap-2 mt-4">
-              {HERO_QUOTES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setQuoteIndex(i)}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    i === quoteIndex
-                      ? "bg-accent w-4"
-                      : "bg-textSecondary/40"
-                  }`}
-                  aria-label={`Ver frase ${i + 1}`}
-                />
+            <div className="relative w-[230px] sm:w-[260px] lg:w-[clamp(230px,calc((100svh_-_230px)_*_0.4734),320px)] aspect-[1408/2974] drop-shadow-[0_28px_36px_rgb(var(--accent)/0.28)]">
+              {HERO_SCREENS.map((screen, i) => (
+                <motion.div
+                  key={screen.src}
+                  initial={false}
+                  animate={{ opacity: i === active ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0"
+                  aria-hidden={i !== active}
+                >
+                  <Image
+                    src={screen.src}
+                    alt={screen.alt}
+                    fill
+                    sizes="(min-width: 1024px) 320px, 260px"
+                    className="object-contain"
+                    priority={i === 0}
+                  />
+                </motion.div>
               ))}
             </div>
-          </div>
-        </motion.div>
 
-        {/* Store badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.26, ease: "easeOut" }}
-        >
-          <StoreBadges showCaptions={false} />
-        </motion.div>
-
-        {/* Secondary CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.32, ease: "easeOut" }}
-          className="mt-8 flex justify-center"
-        >
-          <motion.a
-            href="#features"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 border border-accent/40 text-accent hover:border-accent hover:bg-accent/5 font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-base"
-          >
-            Ver características
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </motion.a>
-        </motion.div>
-      </div>
-
-      {/* Scroll cue */}
-      <motion.a
-        href="#features"
-        aria-label="Desplázate para ver más"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.45, delay: 0.45 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-textSecondary hover:text-accent transition-colors duration-200"
-      >
-        <motion.svg
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </motion.svg>
-      </motion.a>
-    </section>
+            <div
+              role="group"
+              aria-label="Pantallas de la app"
+              className="relative mt-6 flex items-center justify-center gap-2"
+            >
+              {HERO_SCREENS.map((screen, i) => (
+                <button
+                  key={screen.label}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  aria-pressed={i === active}
+                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+                    i === active
+                      ? "bg-accent text-canvas"
+                      : "text-textSecondary hover:text-accent hover:bg-accent/10"
+                  }`}
+                >
+                  {screen.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </MotionConfig>
   );
 }

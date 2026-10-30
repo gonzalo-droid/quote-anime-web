@@ -29,21 +29,21 @@ export const metadata: Metadata = {
 export default function PrivacyPolicy() {
   return (
     <>
-      <main className="min-h-screen bg-bgDark">
+      <main className="min-h-screen bg-canvas">
         {/* Header */}
         <header className="border-b border-accent/10 bg-surface/30 backdrop-blur-sm sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
               <Image
-                src="/images/logo_white.png"
+                src="/images/logo.png"
                 alt="Quote Anime Logo"
                 width={36}
                 height={36}
-                className="h-9 w-9 object-contain"
+                className="h-9 w-9 rounded-[10px] object-cover"
                 priority
               />
               <span className="font-semibold text-textPrimary group-hover:text-accent transition-colors duration-200">
-                Frases Anime
+                Quote Anime
               </span>
             </Link>
             <Link

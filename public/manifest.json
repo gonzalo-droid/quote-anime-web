@@ -4,8 +4,8 @@
   "description": "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0C0C1E",
-  "theme_color": "#0C0C1E",
+  "background_color": "#F7F4FF",
+  "theme_color": "#F7F4FF",
   "icons": [
     {
       "src": "/images/icon-192.png",

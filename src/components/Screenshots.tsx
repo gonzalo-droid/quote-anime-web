@@ -42,7 +42,7 @@ export default function Screenshots() {
     <section id="screenshots" className="py-24 relative scroll-mt-20">
       {/* Decorative background — overflow-hidden contained here, not on the section */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0F0A2E]/50 to-bgDark" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-canvas" />
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
@@ -86,8 +86,8 @@ export default function Screenshots() {
         {/* -mx extiende el scroll edge-to-edge; px restaura el padding visual */}
         <div className="relative">
           {/* Fade hints signal the row is scrollable */}
-          <div className="absolute inset-y-0 left-0 w-12 md:w-20 bg-gradient-to-r from-bgDark to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-12 md:w-20 bg-gradient-to-l from-bgDark to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-12 md:w-20 bg-gradient-to-r from-canvas to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 md:w-20 bg-gradient-to-l from-canvas to-transparent z-10 pointer-events-none" />
 
           <div className="overflow-x-auto scrollbar-none flex justify-center px-6">
             <div className="flex items-end gap-5 min-w-max px-2 pb-8">

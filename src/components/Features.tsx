@@ -10,7 +10,7 @@ export default function Features() {
 
   return (
     <section id="features" className="py-24 px-6 relative scroll-mt-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-bgDark via-surface/20 to-bgDark pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-canvas via-surface/20 to-canvas pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">
         {/* Section header */}
