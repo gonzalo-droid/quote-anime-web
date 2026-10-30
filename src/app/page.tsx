@@ -9,7 +9,6 @@ import {
   PLAY_STORE_URL,
   APP_STORE_URL,
   INSTAGRAM_URL,
-  FACEBOOK_URL,
   SITE_URL,
 } from "@/lib/constants";
 
@@ -22,7 +21,7 @@ export default function Home() {
     applicationCategory: "LifestyleApplication",
     url: SITE_URL,
     downloadUrl: PLAY_STORE_URL,
-    sameAs: [APP_STORE_URL, INSTAGRAM_URL, FACEBOOK_URL],
+    sameAs: [APP_STORE_URL, INSTAGRAM_URL],
     offers: {
       "@type": "Offer",
       price: "0",

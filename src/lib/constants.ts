@@ -6,10 +6,7 @@ export const APP_STORE_URL =
 
 export const CONTACT_EMAIL = "contacto@gondroid.dev";
 
-export const INSTAGRAM_URL = "https://www.instagram.com/animequoteapp/";
-
-export const FACEBOOK_URL =
-  "https://www.facebook.com/share/1Ay18mtNZh/?mibextid=wwXIfr";
+export const INSTAGRAM_URL = "https://www.instagram.com/neko.manga.cix/";
 
 export const HERO_SCREENS = [
   {
