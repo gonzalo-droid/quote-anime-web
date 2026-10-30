@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -44,12 +44,18 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/images/favicon.ico",
+    apple: "/images/icon-192.png",
   },
+  manifest: "/manifest.json",
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0C0C1E",
 };
 
 export default function RootLayout({
