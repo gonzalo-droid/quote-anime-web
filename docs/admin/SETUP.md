@@ -29,8 +29,8 @@ Si despliegas en Vercel, añade las mismas variables en
 
 En Firebase Console → **Authentication → Sign-in method**, habilita el
 proveedor **Google** (si no lo estaba ya para este proyecto). Añade el
-dominios de producción `www.animequote.app` y `animequote.app` (y `localhost`
-para desarrollo) a **Authentication → Settings → Authorized domains**.
+dominio de producción `animequote.app` (y `localhost` para desarrollo) a
+**Authentication → Settings → Authorized domains**.
 
 ## 3. Reglas de Firebase Realtime Database (seguridad real)
 
