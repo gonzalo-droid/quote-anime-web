@@ -26,7 +26,7 @@ export const HERO_SCREENS = [
   },
 ];
 
-export const SITE_URL = "https://quoteanime.app";
+export const SITE_URL = "https://www.animequote.app";
 
 export const RATINGS = {
   googlePlay: 4.5,
