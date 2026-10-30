@@ -7,6 +7,23 @@ export const metadata: Metadata = {
   title: "Términos y Condiciones — Quote Anime",
   description:
     "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+  alternates: {
+    canonical: "/terms-and-conditions",
+  },
+  openGraph: {
+    title: "Términos y Condiciones — Quote Anime",
+    description:
+      "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+    url: "/terms-and-conditions",
+    type: "website",
+    locale: "es_PE",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Términos y Condiciones — Quote Anime",
+    description:
+      "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+  },
 };
 
 export default function TermsAndConditions() {

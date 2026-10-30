@@ -7,6 +7,23 @@ export const metadata: Metadata = {
   title: "Política de Privacidad — Quote Anime",
   description:
     "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Política de Privacidad — Quote Anime",
+    description:
+      "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+    url: "/privacy-policy",
+    type: "website",
+    locale: "es_PE",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Política de Privacidad — Quote Anime",
+    description:
+      "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+  },
 };
 
 export default function PrivacyPolicy() {
