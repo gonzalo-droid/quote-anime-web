@@ -75,7 +75,7 @@ export default function Hero() {
                     src={screen.src}
                     alt={screen.alt}
                     fill
-                    sizes="(min-width: 1024px) 320px, 260px"
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 260px, 230px"
                     className="object-contain"
                     priority={i === 0}
                   />
