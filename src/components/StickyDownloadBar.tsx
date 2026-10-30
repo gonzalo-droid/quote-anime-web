@@ -12,6 +12,7 @@ export default function StickyDownloadBar() {
 
   useEffect(() => {
     if (sessionStorage.getItem(STORAGE_KEY) === "1") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sessionStorage is only available client-side, so this can't be read during render/SSR.
       setDismissed(true);
       return;
     }

@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "quotes": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'gonzalo.lozg@gmail.com'",
+      "$quoteId": {
+        ".validate": "newData.hasChildren(['anime', 'author', 'quote'])"
+      }
+    },
+    "imagenes": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'gonzalo.lozg@gmail.com'"
+    }
+  }
+}
