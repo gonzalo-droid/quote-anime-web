@@ -29,4 +29,4 @@ Next.js 15 App Router, TypeScript, Tailwind CSS, Framer Motion. Single-page mark
 - Two themes: light (default; `#F7F4FF` canvas, `#6D4AE0` accent) and dark (`#0C0C1E` canvas, `#A78BFA` accent). Both must stay readable (accent is darker in light for contrast).
 - Play Store URL: `https://play.google.com/store/apps/details?id=com.gondroid.quoteanime`
 - App Store URL: `https://apps.apple.com/pe/app/quoteanime-frases-de-anime/id6762100338?l=en-GB`
-- `metadataBase` is set to `https://quoteanime.app` in `layout.tsx` for OG image resolution.
+- `metadataBase` is set to `https://animequote.app` in `layout.tsx` for OG image resolution — this is the actual registered/connected domain (Vercel project domains are `animequote.app` / `www.animequote.app`).

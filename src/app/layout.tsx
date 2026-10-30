@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://quoteanime.app"),
+  metadataBase: new URL("https://animequote.app"),
   title: "Quote Anime — Frases del universo anime",
   description:
     "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     "frases motivacionales anime",
   ],
   alternates: {
-    canonical: "https://quoteanime.app",
+    canonical: "https://animequote.app",
   },
   openGraph: {
     title: "Quote Anime",
     description: "Frases del universo anime en tu pantalla cada día.",
-    url: "https://quoteanime.app",
+    url: "https://animequote.app",
     type: "website",
     locale: "es_PE",
   },

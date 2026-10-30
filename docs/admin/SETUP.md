@@ -28,8 +28,10 @@ Si despliegas en Vercel, añade las mismas variables en
 ## 2. Habilitar Google como proveedor en Firebase Auth
 
 En Firebase Console → **Authentication → Sign-in method**, habilita el
-proveedor **Google** (si no lo estaba ya para este proyecto). Añade el
-dominio de producción de `quoteanime.app` (y `localhost` para desarrollo) a
+proveedor **Google** (si no lo estaba ya para este proyecto). Añade los
+dominios de producción `animequote.app` y `www.animequote.app` (el dominio
+real conectado al proyecto de Vercel — no `quoteanime.app`, que no está
+conectado) y `localhost` para desarrollo a
 **Authentication → Settings → Authorized domains**.
 
 ## 3. Reglas de Firebase Realtime Database (seguridad real)
