@@ -41,11 +41,6 @@ export const NAV_LINKS = [
 
 export const FAQ_ITEMS = [
   {
-    question: "¿AnimeQuote es lo mismo que Quote Anime?",
-    answer:
-      "Sí. Quote Anime (Anime Quote) cambió de nombre a AnimeQuote, pero es la misma app, con el mismo catálogo de frases, favoritos y notificaciones de siempre.",
-  },
-  {
     question: "¿AnimeQuote es gratis?",
     answer:
       "Sí, AnimeQuote es completamente gratis para descargar y usar, sin necesidad de registro.",
