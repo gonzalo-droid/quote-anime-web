@@ -41,7 +41,7 @@ export default function StickyDownloadBar() {
           className="fixed bottom-0 inset-x-0 z-50 sm:hidden bg-surface/95 border-t border-accent/20 backdrop-blur-sm px-4 py-3 flex items-center justify-between gap-3"
         >
           <span className="text-textPrimary text-sm font-semibold shrink-0">
-            Descarga Quote Anime
+            Descarga AnimeQuote
           </span>
           <div className="flex items-center gap-2">
             <a

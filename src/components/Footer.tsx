@@ -11,12 +11,12 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <Image
               src="/images/logo.png"
-              alt="Quote Anime Logo"
+              alt="AnimeQuote Logo"
               width={36}
               height={36}
               className="h-9 w-9 rounded-[10px] object-cover"
             />
-            <span className="font-semibold text-textPrimary">Quote Anime</span>
+            <span className="font-semibold text-textPrimary">AnimeQuote</span>
           </div>
 
           {/* Links — two rows: legal / social+contact */}

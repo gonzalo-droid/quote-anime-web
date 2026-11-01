@@ -79,7 +79,7 @@ export default function StoreBadges({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/qr-google-play.svg"
-                alt="Código QR para descargar Quote Anime en Google Play"
+                alt="Código QR para descargar AnimeQuote en Google Play"
                 width={64}
                 height={64}
               />
@@ -137,7 +137,7 @@ export default function StoreBadges({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/qr-app-store.svg"
-                alt="Código QR para descargar Quote Anime en App Store"
+                alt="Código QR para descargar AnimeQuote en App Store"
                 width={64}
                 height={64}
               />

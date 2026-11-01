@@ -4,25 +4,25 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Términos y Condiciones — Quote Anime",
+  title: "Términos y Condiciones — AnimeQuote",
   description:
-    "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+    "Términos y condiciones de uso de AnimeQuote. Conoce las reglas y condiciones para usar la app.",
   alternates: {
     canonical: "/terms-and-conditions",
   },
   openGraph: {
-    title: "Términos y Condiciones — Quote Anime",
+    title: "Términos y Condiciones — AnimeQuote",
     description:
-      "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+      "Términos y condiciones de uso de AnimeQuote. Conoce las reglas y condiciones para usar la app.",
     url: "/terms-and-conditions",
     type: "website",
     locale: "es_PE",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Términos y Condiciones — Quote Anime",
+    title: "Términos y Condiciones — AnimeQuote",
     description:
-      "Términos y condiciones de uso de Quote Anime. Conoce las reglas y condiciones para usar la app.",
+      "Términos y condiciones de uso de AnimeQuote. Conoce las reglas y condiciones para usar la app.",
   },
 };
 
@@ -36,14 +36,14 @@ export default function TermsAndConditions() {
             <Link href="/" className="flex items-center gap-3 group">
               <Image
                 src="/images/logo.png"
-                alt="Quote Anime Logo"
+                alt="AnimeQuote Logo"
                 width={36}
                 height={36}
                 className="h-9 w-9 rounded-[10px] object-cover"
                 priority
               />
               <span className="font-semibold text-textPrimary group-hover:text-accent transition-colors duration-200">
-                Quote Anime
+                AnimeQuote
               </span>
             </Link>
             <Link

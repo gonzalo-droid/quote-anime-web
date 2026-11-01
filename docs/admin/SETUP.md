@@ -57,7 +57,7 @@ en Firebase Console → **Realtime Database → Reglas** y publica:
 }
 ```
 
-- `.read: true` se mantiene público porque la app móvil de QuoteAnime lee
+- `.read: true` se mantiene público porque la app móvil de AnimeQuote lee
   `quotes`/`imagenes` directamente desde el cliente, sin autenticarse.
 - `.write` solo permite escribir a una sesión de Firebase Auth cuyo email
   verificado sea exactamente el correo autorizado.

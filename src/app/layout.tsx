@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://animequote.app"),
-  title: "Quote Anime — Frases del universo anime",
+  title: "AnimeQuote — Frases del universo anime",
   description:
     "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
   keywords: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     canonical: "https://animequote.app",
   },
   openGraph: {
-    title: "Quote Anime",
+    title: "AnimeQuote",
     description: "Frases del universo anime en tu pantalla cada día.",
     url: "https://animequote.app",
     type: "website",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Quote Anime",
+    title: "AnimeQuote",
     description: "Frases motivacionales del universo anime.",
   },
   icons: {

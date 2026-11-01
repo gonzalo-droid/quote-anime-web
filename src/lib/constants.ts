@@ -12,17 +12,17 @@ export const HERO_SCREENS = [
   {
     label: "Frases",
     src: "/images/home_app.png",
-    alt: "Pantalla principal de Quote Anime mostrando una frase de anime a pantalla completa",
+    alt: "Pantalla principal de AnimeQuote mostrando una frase de anime a pantalla completa",
   },
   {
     label: "Explorar",
     src: "/images/category_app.png",
-    alt: "Pantalla Explorar de Quote Anime con frases agrupadas por emoción",
+    alt: "Pantalla Explorar de AnimeQuote con frases agrupadas por emoción",
   },
   {
     label: "Favoritas",
     src: "/images/quotes_app.png",
-    alt: "Lista de frases favoritas guardadas en Quote Anime",
+    alt: "Lista de frases favoritas guardadas en AnimeQuote",
   },
 ];
 
@@ -41,9 +41,9 @@ export const NAV_LINKS = [
 
 export const FAQ_ITEMS = [
   {
-    question: "¿Quote Anime es gratis?",
+    question: "¿AnimeQuote es gratis?",
     answer:
-      "Sí, Quote Anime es completamente gratis para descargar y usar, sin necesidad de registro.",
+      "Sí, AnimeQuote es completamente gratis para descargar y usar, sin necesidad de registro.",
   },
   {
     question: "¿Tiene anuncios?",

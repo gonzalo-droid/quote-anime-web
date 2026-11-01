@@ -116,7 +116,7 @@ export default function AppShowcase() {
             media={
               <Phone
                 src="/images/setting_app.png"
-                alt="Pantalla Personalización de Quote Anime con el horario permitido y la frecuencia de notificaciones"
+                alt="Pantalla Personalización de AnimeQuote con el horario permitido y la frecuencia de notificaciones"
               />
             }
           >
@@ -130,7 +130,7 @@ export default function AppShowcase() {
             media={
               <Phone
                 src="/images/widget_app.png"
-                alt="Widget de Quote Anime en la pantalla de inicio mostrando una frase de Natsu Dragneel, de Fairy Tail"
+                alt="Widget de AnimeQuote en la pantalla de inicio mostrando una frase de Natsu Dragneel, de Fairy Tail"
               />
             }
           >

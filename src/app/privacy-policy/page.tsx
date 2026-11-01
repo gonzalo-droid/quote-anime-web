@@ -4,25 +4,25 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidad — Quote Anime",
+  title: "Política de Privacidad — AnimeQuote",
   description:
-    "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+    "Política de privacidad de AnimeQuote. Información sobre el tratamiento de datos en la app.",
   alternates: {
     canonical: "/privacy-policy",
   },
   openGraph: {
-    title: "Política de Privacidad — Quote Anime",
+    title: "Política de Privacidad — AnimeQuote",
     description:
-      "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+      "Política de privacidad de AnimeQuote. Información sobre el tratamiento de datos en la app.",
     url: "/privacy-policy",
     type: "website",
     locale: "es_PE",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Política de Privacidad — Quote Anime",
+    title: "Política de Privacidad — AnimeQuote",
     description:
-      "Política de privacidad de Quote Anime. Información sobre el tratamiento de datos en la app.",
+      "Política de privacidad de AnimeQuote. Información sobre el tratamiento de datos en la app.",
   },
 };
 
@@ -36,14 +36,14 @@ export default function PrivacyPolicy() {
             <Link href="/" className="flex items-center gap-3 group">
               <Image
                 src="/images/logo.png"
-                alt="Quote Anime Logo"
+                alt="AnimeQuote Logo"
                 width={36}
                 height={36}
                 className="h-9 w-9 rounded-[10px] object-cover"
                 priority
               />
               <span className="font-semibold text-textPrimary group-hover:text-accent transition-colors duration-200">
-                Quote Anime
+                AnimeQuote
               </span>
             </Link>
             <Link

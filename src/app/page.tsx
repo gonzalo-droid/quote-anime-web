@@ -16,7 +16,7 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
-    name: "Quote Anime",
+    name: "AnimeQuote",
     operatingSystem: "ANDROID, IOS",
     applicationCategory: "LifestyleApplication",
     url: SITE_URL,

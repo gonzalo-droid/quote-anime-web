@@ -1,6 +1,6 @@
 {
-  "name": "Quote Anime — Frases del universo anime",
-  "short_name": "Quote Anime",
+  "name": "AnimeQuote — Frases del universo anime",
+  "short_name": "AnimeQuote",
   "description": "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
   "start_url": "/",
   "display": "standalone",
