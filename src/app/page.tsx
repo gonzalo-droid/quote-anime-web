@@ -17,6 +17,8 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     name: "AnimeQuote",
+    // El nombre anterior, para que las fichas de las tiendas sigan asociadas.
+    alternateName: ["Quote Anime", "QuoteAnime"],
     operatingSystem: "ANDROID, IOS",
     applicationCategory: "LifestyleApplication",
     url: SITE_URL,

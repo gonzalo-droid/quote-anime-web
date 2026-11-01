@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/constants";
 
 // Actualizar manualmente esta fecha cuando cambie el contenido de la ruta.
 const LAST_MODIFIED: Record<string, string> = {
-  "": "2026-07-31",
+  "": "2026-10-31",
   "/privacy-policy": "2026-07-13",
   "/terms-and-conditions": "2026-07-13",
 };

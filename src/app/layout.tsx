@@ -19,9 +19,12 @@ export const metadata: Metadata = {
   title: "AnimeQuote — Frases del universo anime",
   description:
     "Frases motivacionales del universo anime para Android e iOS. Notificaciones, widget, favoritos y más.",
+  applicationName: "AnimeQuote",
   keywords: [
+    "animequote",
+    "anime quote",
+    "anime quotes",
     "frases anime",
-    "quotes anime",
     "app frases anime",
     "widget anime",
     "notificaciones anime",
@@ -34,6 +37,7 @@ export const metadata: Metadata = {
     title: "AnimeQuote",
     description: "Frases del universo anime en tu pantalla cada día.",
     url: "https://animequote.app",
+    siteName: "AnimeQuote",
     type: "website",
     locale: "es_PE",
   },
