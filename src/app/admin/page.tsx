@@ -19,13 +19,14 @@ import { QuoteFilters } from "@/components/admin/quotes/QuoteFilters";
 import { QuoteTable } from "@/components/admin/quotes/QuoteTable";
 import { QuoteForm } from "@/components/admin/quotes/QuoteForm";
 import { ImportQuotesModal } from "@/components/admin/quotes/ImportQuotesModal";
+import { AssignXsModal } from "@/components/admin/quotes/AssignXsModal";
 import { Pagination } from "@/components/admin/quotes/Pagination";
 import { ImagenesSection } from "@/components/admin/imagenes/ImagenesSection";
 import { Modal } from "@/components/admin/ui/Modal";
 import { ConfirmDialog } from "@/components/admin/ui/ConfirmDialog";
 import { ToastContainer } from "@/components/admin/ui/Toast";
 import { Button } from "@/components/admin/ui/Button";
-import { Plus, Database, AlertCircle, Upload } from "lucide-react";
+import { Plus, Database, AlertCircle, Upload, Smartphone } from "lucide-react";
 
 type Tab = "quotes" | "imagenes";
 type ModalMode = { type: "create" } | { type: "edit"; quote: Quote } | null;
@@ -62,7 +63,7 @@ function AdminDashboard({
 }) {
   const [activeTab, setActiveTab] = useState<Tab>("quotes");
 
-  const { quotes, loading: quotesLoading, error: quotesError, create, update, remove } = useQuotes();
+  const { quotes, loading: quotesLoading, error: quotesError, create, update, remove, setSize: setQuotesSize } = useQuotes();
   const { imagenesMap, loading: imagenesLoading, error: imagenesError, addUrl, removeUrl, createAnime, deleteAnime } = useImagenes();
 
   const {
@@ -74,6 +75,7 @@ function AdminDashboard({
     toggleCategory,
     setSize,
     setTranslation,
+    setHomeWidget,
     setSort,
     clearFilters,
     activeFilterCount,
@@ -84,6 +86,7 @@ function AdminDashboard({
 
   const [modal, setModal] = useState<ModalMode>(null);
   const [importOpen, setImportOpen] = useState(false);
+  const [assignXsOpen, setAssignXsOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<Quote | null>(null);
   const [deleting, setDeleting] = useState(false);
 
@@ -151,6 +154,10 @@ function AdminDashboard({
                   )}
                 </div>
                 <div className="flex items-center gap-2">
+                  <Button variant="outline" onClick={() => setAssignXsOpen(true)} disabled={quotesLoading}>
+                    <Smartphone className="w-4 h-4" />
+                    Asignar XS
+                  </Button>
                   <Button variant="outline" onClick={() => setImportOpen(true)}>
                     <Upload className="w-4 h-4" />
                     Importar JSON
@@ -173,6 +180,7 @@ function AdminDashboard({
                   onToggleCategory={toggleCategory}
                   onSizeChange={setSize}
                   onTranslationChange={setTranslation}
+                  onHomeWidgetChange={setHomeWidget}
                   onClear={clearFilters}
                 />
               </div>
@@ -229,6 +237,21 @@ function AdminDashboard({
           </div>
         )}
       </main>
+
+      <AssignXsModal
+        open={assignXsOpen}
+        quotes={quotes}
+        onClose={() => setAssignXsOpen(false)}
+        onConfirm={async (ids) => {
+          try {
+            await setQuotesSize(ids, "xs");
+            toast.success(`${ids.length} frase${ids.length !== 1 ? "s" : ""} marcada${ids.length !== 1 ? "s" : ""} como XS.`);
+            setAssignXsOpen(false);
+          } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Error al asignar XS.");
+          }
+        }}
+      />
 
       {/* Import JSON Modal */}
       <ImportQuotesModal

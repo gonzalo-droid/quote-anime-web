@@ -28,12 +28,16 @@ export type QuoteFormData = Omit<Quote, "id">;
 
 export type TranslationFilter = "all" | "translated" | "missing";
 
+/** Whether the quote's text fits the home widget, regardless of its assigned size. */
+export type HomeWidgetFilter = "all" | "fits" | "too-long";
+
 export interface QuoteFilters {
   search: string;
   anime: string;
   categories: Category[];
   size: QuoteSize | null;
   translation: TranslationFilter;
+  homeWidget: HomeWidgetFilter;
 }
 
 export type SortField = "anime" | "author" | "quote";

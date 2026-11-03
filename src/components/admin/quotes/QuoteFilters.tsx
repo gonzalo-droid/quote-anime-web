@@ -1,12 +1,12 @@
 "use client";
 
-import { Category, QuoteSize, TranslationFilter } from "@/types";
+import { Category, QuoteSize, TranslationFilter, HomeWidgetFilter } from "@/types";
 import { QuoteFilters as FiltersType } from "@/types";
 import { Input } from "@/components/admin/ui/Input";
 import { Button } from "@/components/admin/ui/Button";
 import { CategoryBadge } from "@/components/admin/ui/Badge";
 import { CATEGORIES } from "@/lib/categories";
-import { SIZE_OPTIONS } from "@/lib/quoteSize";
+import { SIZE_OPTIONS, HOME_WIDGET_MAX_CHARS } from "@/lib/quoteSize";
 import { cn } from "@/lib/utils";
 import { Search, Filter, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -15,6 +15,12 @@ const TRANSLATION_OPTIONS: { value: TranslationFilter; label: string }[] = [
   { value: "all", label: "Todos los idiomas" },
   { value: "translated", label: "Con inglés" },
   { value: "missing", label: "Sin inglés" },
+];
+
+const HOME_WIDGET_OPTIONS: { value: HomeWidgetFilter; label: string }[] = [
+  { value: "all", label: "Widget home: todas" },
+  { value: "fits", label: `Caben en widget (≤${HOME_WIDGET_MAX_CHARS})` },
+  { value: "too-long", label: "No caben en widget" },
 ];
 
 const selectCls =
@@ -31,6 +37,7 @@ interface QuoteFiltersProps {
   onToggleCategory: (c: Category) => void;
   onSizeChange: (v: QuoteSize | null) => void;
   onTranslationChange: (v: TranslationFilter) => void;
+  onHomeWidgetChange: (v: HomeWidgetFilter) => void;
   onClear: () => void;
 }
 
@@ -43,6 +50,7 @@ export function QuoteFilters({
   onToggleCategory,
   onSizeChange,
   onTranslationChange,
+  onHomeWidgetChange,
   onClear,
 }: QuoteFiltersProps) {
   const [showCategories, setShowCategories] = useState(false);
@@ -105,6 +113,19 @@ export function QuoteFilters({
             className={selectCls}
           >
             {TRANSLATION_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Home widget fit select */}
+        <div className="min-w-44">
+          <select
+            value={filters.homeWidget}
+            onChange={(e) => onHomeWidgetChange(e.target.value as HomeWidgetFilter)}
+            className={selectCls}
+          >
+            {HOME_WIDGET_OPTIONS.map(({ value, label }) => (
               <option key={value} value={value}>{label}</option>
             ))}
           </select>

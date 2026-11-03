@@ -15,6 +15,8 @@ interface ParsedRow {
   index: number;
   data: QuoteFormData;
   warnings: string[];
+  /** True when size wasn't given (or was invalid) and XS was assigned because the text fits. */
+  autoSize: boolean;
 }
 
 interface ParseError {
@@ -112,6 +114,9 @@ function parseJson(raw: unknown): { rows: ParsedRow[]; errors: ParseError[] } {
       }
     }
 
+    const autoSize = size === null && fitsHomeWidget(quote, quoteEn);
+    if (autoSize) size = "xs";
+
     rows.push({
       index: i,
       data: {
@@ -124,6 +129,7 @@ function parseJson(raw: unknown): { rows: ParsedRow[]; errors: ParseError[] } {
         size,
       },
       warnings,
+      autoSize,
     });
   });
 
@@ -222,7 +228,8 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
     "author": "Naruto Uzumaki", // requerido
     "quote": "Texto...",      // requerido (español)
     "quoteEn": "Text...",     // opcional (inglés)
-    "size": "xs",             // opcional: xs | short | medium | long
+    "size": "short",          // opcional: xs | short | medium | long
+                              // si se omite y cabe en el widget → xs automático
     "categories": ["motivación", "lucha"], // opcional
     "animeSlug": "naruto"     // opcional
   }
@@ -341,8 +348,15 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
                         <td className="px-3 py-2 text-gray-400 max-w-xs truncate" title={row.data.quoteEn ?? undefined}>
                           {row.data.quoteEn ?? <span className="text-gray-700">—</span>}
                         </td>
-                        <td className="px-3 py-2 text-gray-400 uppercase">
-                          {row.data.size ?? <span className="text-gray-700">—</span>}
+                        <td className="px-3 py-2 text-gray-400 whitespace-nowrap">
+                          {row.data.size ? (
+                            <span className={row.autoSize ? "text-emerald-400" : undefined}>
+                              <span className="uppercase">{row.data.size}</span>
+                              {row.autoSize && " (auto)"}
+                            </span>
+                          ) : (
+                            <span className="text-gray-700">—</span>
+                          )}
                         </td>
                         <td className="px-3 py-2">
                           {row.data.categories ? (

@@ -2,6 +2,7 @@ import {
   ref,
   push,
   set,
+  update,
   remove,
   onValue,
   off,
@@ -9,7 +10,7 @@ import {
   DataSnapshot,
 } from "firebase/database";
 import { getDb } from "./config";
-import { Quote, QuoteFormData } from "@/types";
+import { Quote, QuoteFormData, QuoteSize } from "@/types";
 import { isQuoteSize } from "@/lib/quoteSize";
 
 const QUOTES_PATH = "quotes";
@@ -63,6 +64,14 @@ export async function createQuote(data: QuoteFormData): Promise<string> {
 
 export async function updateQuote(id: string, data: QuoteFormData): Promise<void> {
   await set(quoteRef(id), data);
+}
+
+/** Sets `size` on many quotes in a single atomic multi-path update. */
+export async function setQuotesSize(ids: string[], size: QuoteSize): Promise<void> {
+  if (ids.length === 0) return;
+  const updates: Record<string, QuoteSize> = {};
+  for (const id of ids) updates[`${id}/size`] = size;
+  await update(quotesRef(), updates);
 }
 
 export async function deleteQuote(id: string): Promise<void> {

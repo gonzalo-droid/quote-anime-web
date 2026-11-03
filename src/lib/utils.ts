@@ -1,4 +1,5 @@
 import { Quote, QuoteFilters, SortConfig } from "@/types";
+import { fitsHomeWidget } from "@/lib/quoteSize";
 
 export function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -50,6 +51,11 @@ export function filterQuotes(quotes: Quote[], filters: QuoteFilters): Quote[] {
 
     if (filters.translation === "translated" && !q.quoteEn) return false;
     if (filters.translation === "missing" && q.quoteEn) return false;
+
+    if (filters.homeWidget !== "all") {
+      const fits = fitsHomeWidget(q.quote, q.quoteEn);
+      if (filters.homeWidget === "fits" ? !fits : fits) return false;
+    }
 
     return true;
   });
