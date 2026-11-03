@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Quote, QuoteFilters, QuoteSize, SortConfig, Category } from "@/types";
+import { Quote, QuoteFilters, QuoteSize, SortConfig, Category, TranslationFilter } from "@/types";
 import { filterQuotes, sortQuotes } from "@/lib/utils";
 
 const DEFAULT_FILTERS: QuoteFilters = {
@@ -9,6 +9,7 @@ const DEFAULT_FILTERS: QuoteFilters = {
   anime: "",
   categories: [],
   size: null,
+  translation: "all",
 };
 
 const DEFAULT_SORT: SortConfig = {
@@ -24,6 +25,7 @@ interface UseFiltersReturn {
   setAnime: (v: string) => void;
   toggleCategory: (c: Category) => void;
   setSize: (v: QuoteSize | null) => void;
+  setTranslation: (v: TranslationFilter) => void;
   setSort: (field: SortConfig["field"]) => void;
   clearFilters: () => void;
   activeFilterCount: number;
@@ -43,6 +45,7 @@ export function useFilters(quotes: Quote[]): UseFiltersReturn {
     if (filters.search) count++;
     if (filters.anime) count++;
     if (filters.size) count++;
+    if (filters.translation !== "all") count++;
     count += filters.categories.length;
     return count;
   }, [filters]);
@@ -57,6 +60,10 @@ export function useFilters(quotes: Quote[]): UseFiltersReturn {
 
   function setSize(v: QuoteSize | null) {
     setFilters((f) => ({ ...f, size: v }));
+  }
+
+  function setTranslation(v: TranslationFilter) {
+    setFilters((f) => ({ ...f, translation: v }));
   }
 
   function toggleCategory(c: Category) {
@@ -88,6 +95,7 @@ export function useFilters(quotes: Quote[]): UseFiltersReturn {
     setAnime,
     toggleCategory,
     setSize,
+    setTranslation,
     setSort: handleSetSort,
     clearFilters,
     activeFilterCount,

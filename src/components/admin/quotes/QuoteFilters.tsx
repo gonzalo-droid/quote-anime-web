@@ -1,20 +1,26 @@
 "use client";
 
-import { Category, QuoteSize } from "@/types";
+import { Category, QuoteSize, TranslationFilter } from "@/types";
 import { QuoteFilters as FiltersType } from "@/types";
 import { Input } from "@/components/admin/ui/Input";
 import { Button } from "@/components/admin/ui/Button";
 import { CategoryBadge } from "@/components/admin/ui/Badge";
 import { CATEGORIES } from "@/lib/categories";
+import { SIZE_OPTIONS } from "@/lib/quoteSize";
 import { cn } from "@/lib/utils";
 import { Search, Filter, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-const SIZE_OPTIONS: { value: QuoteSize; label: string }[] = [
-  { value: "short", label: "Short" },
-  { value: "medium", label: "Medium" },
-  { value: "long", label: "Long" },
+const TRANSLATION_OPTIONS: { value: TranslationFilter; label: string }[] = [
+  { value: "all", label: "Todos los idiomas" },
+  { value: "translated", label: "Con inglés" },
+  { value: "missing", label: "Sin inglés" },
 ];
+
+const selectCls =
+  "w-full rounded-lg bg-gray-800 border border-gray-700 text-sm text-gray-100 px-3 py-2 " +
+  "focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent " +
+  "hover:border-gray-600 transition-all";
 
 interface QuoteFiltersProps {
   filters: FiltersType;
@@ -24,6 +30,7 @@ interface QuoteFiltersProps {
   onAnimeChange: (v: string) => void;
   onToggleCategory: (c: Category) => void;
   onSizeChange: (v: QuoteSize | null) => void;
+  onTranslationChange: (v: TranslationFilter) => void;
   onClear: () => void;
 }
 
@@ -35,6 +42,7 @@ export function QuoteFilters({
   onAnimeChange,
   onToggleCategory,
   onSizeChange,
+  onTranslationChange,
   onClear,
 }: QuoteFiltersProps) {
   const [showCategories, setShowCategories] = useState(false);
@@ -45,7 +53,7 @@ export function QuoteFilters({
         {/* Search */}
         <div className="flex-1 min-w-48">
           <Input
-            placeholder="Buscar por autor o frase..."
+            placeholder="Buscar por autor o frase (ES/EN)..."
             value={filters.search}
             onChange={(e) => onSearchChange(e.target.value)}
             leftIcon={<Search className="w-4 h-4" />}
@@ -80,12 +88,23 @@ export function QuoteFilters({
           <select
             value={filters.size ?? ""}
             onChange={(e) => onSizeChange((e.target.value as QuoteSize) || null)}
-            className="w-full rounded-lg bg-gray-800 border border-gray-700 text-sm text-gray-100 px-3 py-2
-              focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
-              hover:border-gray-600 transition-all"
+            className={selectCls}
           >
             <option value="">Todos los tamaños</option>
             {SIZE_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>{label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Translation select */}
+        <div className="min-w-44">
+          <select
+            value={filters.translation}
+            onChange={(e) => onTranslationChange(e.target.value as TranslationFilter)}
+            className={selectCls}
+          >
+            {TRANSLATION_OPTIONS.map(({ value, label }) => (
               <option key={value} value={value}>{label}</option>
             ))}
           </select>

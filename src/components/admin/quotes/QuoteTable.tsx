@@ -93,7 +93,9 @@ export function QuoteTable({ quotes, sort, imagenesMap, onSort, onEdit, onDelete
   const [previewImage, setPreviewImage] = useState<{ src: string; alt: string } | null>(null);
 
   const headerCls = "text-xs font-semibold text-gray-500 uppercase tracking-wider";
-  const sortable = "cursor-pointer hover:text-gray-300 select-none flex items-center gap-1";
+  // flex goes on an inner span: a flex <th> stops being a table cell and adjacent ones merge.
+  const sortable = "cursor-pointer hover:text-gray-300 select-none";
+  const sortableInner = "inline-flex items-center gap-1";
 
   return (
     <>
@@ -105,8 +107,19 @@ export function QuoteTable({ quotes, sort, imagenesMap, onSort, onEdit, onDelete
                 className={cn(headerCls, sortable, "px-4 py-3 text-left")}
                 onClick={() => onSort("anime")}
               >
-                Anime <SortIcon field="anime" sort={sort} />
+                <span className={sortableInner}>
+                  Anime <SortIcon field="anime" sort={sort} />
+                </span>
               </th>
+              <th
+                className={cn(headerCls, sortable, "px-4 py-3 text-left")}
+                onClick={() => onSort("author")}
+              >
+                <span className={sortableInner}>
+                  Autor <SortIcon field="author" sort={sort} />
+                </span>
+              </th>
+              <th className={cn(headerCls, "px-4 py-3 text-left")}>Frase</th>
               <th className={cn(headerCls, "px-4 py-3 text-left")}>Categorías</th>
               <th className={cn(headerCls, "px-4 py-3 text-left")}>Slug</th>
               <th className={cn(headerCls, "px-4 py-3 text-right")}>Acciones</th>
@@ -147,6 +160,30 @@ export function QuoteTable({ quotes, sort, imagenesMap, onSort, onEdit, onDelete
                         &ldquo;{truncate(q.quote, 100)}&rdquo;
                       </p>
                       <CopyButton text={q.quote} />
+                    </div>
+                    <div className="mt-1.5 flex items-center gap-1.5">
+                      {q.size && (
+                        <span
+                          className={cn(
+                            "rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase",
+                            q.size === "xs"
+                              ? "bg-emerald-500/15 text-emerald-300"
+                              : "bg-gray-800 text-gray-400"
+                          )}
+                          title={q.size === "xs" ? "Se muestra en el widget del home" : undefined}
+                        >
+                          {q.size}
+                        </span>
+                      )}
+                      <span
+                        className={cn(
+                          "rounded px-1.5 py-0.5 text-[10px] font-semibold",
+                          q.quoteEn ? "bg-indigo-500/15 text-indigo-300" : "bg-gray-800 text-gray-600 line-through"
+                        )}
+                        title={q.quoteEn ?? "Sin traducción al inglés"}
+                      >
+                        EN
+                      </span>
                     </div>
                   </td>
 

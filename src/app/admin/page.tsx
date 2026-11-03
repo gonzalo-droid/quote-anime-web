@@ -65,8 +65,19 @@ function AdminDashboard({
   const { quotes, loading: quotesLoading, error: quotesError, create, update, remove } = useQuotes();
   const { imagenesMap, loading: imagenesLoading, error: imagenesError, addUrl, removeUrl, createAnime, deleteAnime } = useImagenes();
 
-  const { filters, sort, filteredQuotes, setSearch, setAnime, toggleCategory, setSize, setSort, clearFilters, activeFilterCount } =
-    useFilters(quotes);
+  const {
+    filters,
+    sort,
+    filteredQuotes,
+    setSearch,
+    setAnime,
+    toggleCategory,
+    setSize,
+    setTranslation,
+    setSort,
+    clearFilters,
+    activeFilterCount,
+  } = useFilters(quotes);
   const { page, pageSize, total, totalPages, paginated, pageSizeOptions, setPage, setPageSize } =
     usePagination(filteredQuotes);
   const toast = useToast();
@@ -161,6 +172,7 @@ function AdminDashboard({
                   onAnimeChange={setAnime}
                   onToggleCategory={toggleCategory}
                   onSizeChange={setSize}
+                  onTranslationChange={setTranslation}
                   onClear={clearFilters}
                 />
               </div>
