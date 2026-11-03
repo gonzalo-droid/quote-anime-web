@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Quote, QuoteFormData, Category, AnimeImagesMap, QuoteSize } from "@/types";
+import { Quote, QuoteFormData, Category, AnimeImagesMap } from "@/types";
 import { Input, Textarea } from "@/components/admin/ui/Input";
 import { Button } from "@/components/admin/ui/Button";
 import { CategorySelector } from "./CategorySelector";
 import { validateCategories } from "@/lib/categories";
+import { SIZE_OPTIONS, HOME_WIDGET_MAX_CHARS, fitsHomeWidget } from "@/lib/quoteSize";
 import { Link2, Images, ChevronDown } from "lucide-react";
 
 interface QuoteFormProps {
@@ -19,24 +20,28 @@ interface FormErrors {
   anime?: string;
   author?: string;
   quote?: string;
+  quoteEn?: string;
   categories?: string;
   animeSlug?: string;
+  size?: string;
 }
 
 const EMPTY_FORM: QuoteFormData = {
   anime: "",
   author: "",
   quote: "",
+  quoteEn: null,
   categories: null,
   animeSlug: null,
   size: null,
 };
 
-const SIZE_OPTIONS: { value: QuoteSize; label: string; hint: string }[] = [
-  { value: "short", label: "Short", hint: "Frase corta — ideal para lock screen compacto" },
-  { value: "medium", label: "Medium", hint: "Frase mediana" },
-  { value: "long", label: "Long", hint: "Frase larga — puede no caber en widget pequeño" },
-];
+function charCountHint(text: string): string {
+  const length = text.trim().length;
+  return length <= HOME_WIDGET_MAX_CHARS
+    ? `${length}/${HOME_WIDGET_MAX_CHARS} caracteres · cabe en el widget del home`
+    : `${length} caracteres · no cabe en el widget del home (máx. ${HOME_WIDGET_MAX_CHARS})`;
+}
 
 export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: QuoteFormProps) {
   const [form, setForm] = useState<QuoteFormData>(
@@ -45,6 +50,7 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
           anime: initialData.anime,
           author: initialData.author,
           quote: initialData.quote,
+          quoteEn: initialData.quoteEn,
           categories: initialData.categories,
           animeSlug: initialData.animeSlug,
           size: initialData.size,
@@ -60,7 +66,9 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
 
   function setField<K extends keyof QuoteFormData>(key: K, value: QuoteFormData[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
-    setErrors((prev) => ({ ...prev, [key]: undefined }));
+    // Editing either text can fix (or break) the XS length rule, so clear its error too.
+    const textChanged = key === "quote" || key === "quoteEn";
+    setErrors((prev) => ({ ...prev, [key]: undefined, ...(textChanged && { size: undefined }) }));
   }
 
   function validate(): FormErrors {
@@ -69,6 +77,14 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
     if (!form.author.trim()) e.author = "El autor es requerido.";
     if (!form.quote.trim()) e.quote = "La frase es requerida.";
     else if (form.quote.trim().length < 10) e.quote = "La frase debe tener al menos 10 caracteres.";
+
+    if (form.quoteEn?.trim() && form.quoteEn.trim().length < 10) {
+      e.quoteEn = "La traducción debe tener al menos 10 caracteres.";
+    }
+
+    if (form.size === "xs" && !fitsHomeWidget(form.quote, form.quoteEn)) {
+      e.size = `Para XS, la frase en cada idioma debe tener máximo ${HOME_WIDGET_MAX_CHARS} caracteres.`;
+    }
 
     if (form.categories && form.categories.length > 0) {
       const catError = validateCategories(form.categories);
@@ -96,6 +112,7 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
         anime: form.anime.trim(),
         author: form.author.trim(),
         quote: form.quote.trim(),
+        quoteEn: form.quoteEn?.trim() || null,
         categories: form.categories && form.categories.length > 0 ? form.categories : null,
         animeSlug: form.animeSlug?.trim() || null,
         size: form.size ?? null,
@@ -125,12 +142,23 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
       </div>
 
       <Textarea
-        label="Frase *"
+        label="Frase en español *"
         placeholder="Escribe la frase aquí..."
-        rows={4}
+        rows={3}
         value={form.quote}
         onChange={(e) => setField("quote", e.target.value)}
         error={errors.quote}
+        hint={charCountHint(form.quote)}
+      />
+
+      <Textarea
+        label="Frase en inglés"
+        placeholder="English translation (optional)..."
+        rows={3}
+        value={form.quoteEn ?? ""}
+        onChange={(e) => setField("quoteEn", e.target.value || null)}
+        error={errors.quoteEn}
+        hint={form.quoteEn?.trim() ? charCountHint(form.quoteEn) : "Opcional — la app usa la versión en español si falta."}
       />
 
       <CategorySelector
@@ -228,11 +256,18 @@ export function QuoteForm({ initialData, imagenesMap, onSubmit, onCancel }: Quot
             </button>
           ))}
         </div>
-        <p className="text-xs text-gray-500">
-          {form.size
-            ? SIZE_OPTIONS.find((o) => o.value === form.size)?.hint
-            : "Opcional — define cómo se mostrará en el widget de lock screen."}
-        </p>
+        {errors.size ? (
+          <p className="text-xs text-red-400">{errors.size}</p>
+        ) : (
+          <p className="text-xs text-gray-500">
+            {form.size
+              ? SIZE_OPTIONS.find((o) => o.value === form.size)?.hint
+              : "Opcional — define en qué widgets se mostrará la frase."}
+            {form.size !== "xs" && form.quote.trim() && fitsHomeWidget(form.quote, form.quoteEn) && (
+              <span className="text-emerald-400"> Esta frase cabe en el widget del home: puedes marcarla como XS.</span>
+            )}
+          </p>
+        )}
       </div>
 
       <div className="flex justify-end gap-3 pt-2 border-t border-gray-800">

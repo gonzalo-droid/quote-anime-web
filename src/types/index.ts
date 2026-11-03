@@ -10,13 +10,15 @@ export type Category =
   | "esperanza"
   | "orgullo";
 
-export type QuoteSize = "short" | "medium" | "long";
+export type QuoteSize = "xs" | "short" | "medium" | "long";
 
 export interface Quote {
   id: string;
   anime: string;
   author: string;
+  /** Spanish text. Kept as a plain string because the mobile app reads it directly. */
   quote: string;
+  quoteEn: string | null;
   categories: Category[] | null;
   animeSlug: string | null;
   size: QuoteSize | null;
@@ -24,11 +26,18 @@ export interface Quote {
 
 export type QuoteFormData = Omit<Quote, "id">;
 
+export type TranslationFilter = "all" | "translated" | "missing";
+
+/** Whether the quote's text fits the home widget, regardless of its assigned size. */
+export type HomeWidgetFilter = "all" | "fits" | "too-long";
+
 export interface QuoteFilters {
   search: string;
   anime: string;
   categories: Category[];
   size: QuoteSize | null;
+  translation: TranslationFilter;
+  homeWidget: HomeWidgetFilter;
 }
 
 export type SortField = "anime" | "author" | "quote";

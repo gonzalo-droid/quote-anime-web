@@ -1,4 +1,5 @@
 import { Quote, QuoteFilters, SortConfig } from "@/types";
+import { fitsHomeWidget } from "@/lib/quoteSize";
 
 export function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -28,7 +29,8 @@ export function filterQuotes(quotes: Quote[], filters: QuoteFilters): Quote[] {
     if (search) {
       const matchesAuthor = q.author.toLowerCase().includes(search);
       const matchesQuote = q.quote.toLowerCase().includes(search);
-      if (!matchesAuthor && !matchesQuote) return false;
+      const matchesQuoteEn = q.quoteEn?.toLowerCase().includes(search) ?? false;
+      if (!matchesAuthor && !matchesQuote && !matchesQuoteEn) return false;
     }
 
     if (filters.anime) {
@@ -45,6 +47,14 @@ export function filterQuotes(quotes: Quote[], filters: QuoteFilters): Quote[] {
 
     if (filters.size) {
       if (q.size !== filters.size) return false;
+    }
+
+    if (filters.translation === "translated" && !q.quoteEn) return false;
+    if (filters.translation === "missing" && q.quoteEn) return false;
+
+    if (filters.homeWidget !== "all") {
+      const fits = fitsHomeWidget(q.quote, q.quoteEn);
+      if (filters.homeWidget === "fits" ? !fits : fits) return false;
     }
 
     return true;

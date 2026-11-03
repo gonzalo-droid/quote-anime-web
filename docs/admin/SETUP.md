@@ -74,3 +74,31 @@ necesitará que su usuario inicie sesión con Firebase Auth para poder
 escribir — hoy ese dashboard no tiene login, por lo que sus escrituras
 quedarían bloqueadas. Si sigues usando ese dashboard en paralelo, tenlo en
 cuenta antes de publicar las reglas.
+
+## 5. Esquema de una frase (`quotes/{id}`) — contrato con la app móvil
+
+| Campo        | Tipo                                   | Notas |
+|--------------|----------------------------------------|-------|
+| `anime`      | string                                 | Requerido. |
+| `author`     | string                                 | Requerido. |
+| `quote`      | string                                 | Requerido. Texto en **español**. Se mantiene como texto plano para que las versiones actuales de la app sigan funcionando. |
+| `quoteEn`    | string (opcional)                      | Traducción al **inglés**. Si falta, la app debe usar `quote`. |
+| `size`       | `"xs"` \| `"short"` \| `"medium"` \| `"long"` (opcional) | `xs` = cabe en el **widget del home** (máx. 60 caracteres en cada idioma; el dashboard lo valida). La app debe mostrar en ese widget solo frases `xs`. |
+| `categories` | string[] (opcional)                    | Ver `src/lib/categories.ts`. |
+| `animeSlug`  | string (opcional)                      | Clave en el nodo `imagenes`. |
+
+El límite de 60 caracteres vive en `HOME_WIDGET_MAX_CHARS`
+(`src/lib/quoteSize.ts`); si cambia el diseño del widget, actualízalo ahí.
+
+Los tamaños son ordenados (`xs` < `short` < `medium` < `long`): donde la app
+hoy filtra `size == "short"` (widget de la pantalla de bloqueo), debería
+aceptar también `xs`, porque una frase XS también es corta.
+
+Cómo se asigna `xs` desde el dashboard:
+- **Import de JSON:** si una frase no trae `size` (o trae uno inválido) y cabe
+  en el widget, se guarda como `xs` automáticamente. Un `size` válido explícito
+  se respeta.
+- **Botón "Asignar XS"** en `/admin`: recorre las frases existentes que caben
+  y las marca como `xs` en una sola escritura. Por defecto solo toca las que no
+  tienen tamaño; incluir las que ya son short/medium/long es opcional.
+- **Filtro "Caben en widget"** para revisar cuáles califican.

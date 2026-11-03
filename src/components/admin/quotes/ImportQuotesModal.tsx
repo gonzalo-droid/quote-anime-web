@@ -3,8 +3,9 @@
 import { useState, useRef, DragEvent, ChangeEvent } from "react";
 import { Modal } from "@/components/admin/ui/Modal";
 import { Button } from "@/components/admin/ui/Button";
-import { QuoteFormData, Category } from "@/types";
+import { QuoteFormData, Category, QuoteSize } from "@/types";
 import { CATEGORIES } from "@/lib/categories";
+import { isQuoteSize, fitsHomeWidget, HOME_WIDGET_MAX_CHARS } from "@/lib/quoteSize";
 import { Upload, FileJson, AlertCircle, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,8 @@ interface ParsedRow {
   index: number;
   data: QuoteFormData;
   warnings: string[];
+  /** True when size wasn't given (or was invalid) and XS was assigned because the text fits. */
+  autoSize: boolean;
 }
 
 interface ParseError {
@@ -89,17 +92,44 @@ function parseJson(raw: unknown): { rows: ParsedRow[]; errors: ParseError[] } {
       }
     }
 
+    const quote = (obj.quote as string).trim();
+
+    let quoteEn: string | null = null;
+    if (obj.quoteEn !== undefined) {
+      if (typeof obj.quoteEn === "string" && obj.quoteEn.trim()) {
+        quoteEn = obj.quoteEn.trim();
+      } else {
+        warnings.push("quoteEn ignorado (inválido)");
+      }
+    }
+
+    let size: QuoteSize | null = null;
+    if (obj.size !== undefined) {
+      if (!isQuoteSize(obj.size)) {
+        warnings.push(`size ignorado (valor inválido: ${String(obj.size)})`);
+      } else if (obj.size === "xs" && !fitsHomeWidget(quote, quoteEn)) {
+        warnings.push(`size xs ignorado (supera ${HOME_WIDGET_MAX_CHARS} caracteres)`);
+      } else {
+        size = obj.size;
+      }
+    }
+
+    const autoSize = size === null && fitsHomeWidget(quote, quoteEn);
+    if (autoSize) size = "xs";
+
     rows.push({
       index: i,
       data: {
-        quote: (obj.quote as string).trim(),
+        quote,
+        quoteEn,
         author: (obj.author as string).trim(),
         anime: (obj.anime as string).trim(),
         categories,
         animeSlug,
-        size: null,
+        size,
       },
       warnings,
+      autoSize,
     });
   });
 
@@ -196,7 +226,10 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
   {
     "anime": "Naruto",        // requerido
     "author": "Naruto Uzumaki", // requerido
-    "quote": "Texto...",      // requerido
+    "quote": "Texto...",      // requerido (español)
+    "quoteEn": "Text...",     // opcional (inglés)
+    "size": "short",          // opcional: xs | short | medium | long
+                              // si se omite y cabe en el widget → xs automático
     "categories": ["motivación", "lucha"], // opcional
     "animeSlug": "naruto"     // opcional
   }
@@ -298,6 +331,8 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
                       <th className="text-left px-3 py-2 text-gray-500 font-medium">Anime</th>
                       <th className="text-left px-3 py-2 text-gray-500 font-medium">Autor</th>
                       <th className="text-left px-3 py-2 text-gray-500 font-medium">Quote</th>
+                      <th className="text-left px-3 py-2 text-gray-500 font-medium">EN</th>
+                      <th className="text-left px-3 py-2 text-gray-500 font-medium">Size</th>
                       <th className="text-left px-3 py-2 text-gray-500 font-medium">Categorías</th>
                     </tr>
                   </thead>
@@ -309,6 +344,19 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
                         <td className="px-3 py-2 text-gray-300 whitespace-nowrap">{row.data.author}</td>
                         <td className="px-3 py-2 text-gray-400 max-w-xs truncate" title={row.data.quote}>
                           {row.data.quote}
+                        </td>
+                        <td className="px-3 py-2 text-gray-400 max-w-xs truncate" title={row.data.quoteEn ?? undefined}>
+                          {row.data.quoteEn ?? <span className="text-gray-700">—</span>}
+                        </td>
+                        <td className="px-3 py-2 text-gray-400 whitespace-nowrap">
+                          {row.data.size ? (
+                            <span className={row.autoSize ? "text-emerald-400" : undefined}>
+                              <span className="uppercase">{row.data.size}</span>
+                              {row.autoSize && " (auto)"}
+                            </span>
+                          ) : (
+                            <span className="text-gray-700">—</span>
+                          )}
                         </td>
                         <td className="px-3 py-2">
                           {row.data.categories ? (
@@ -324,10 +372,19 @@ export function ImportQuotesModal({ open, onClose, onImport }: ImportQuotesModal
               </div>
             </div>
             {rows.some((r) => r.warnings.length > 0) && (
-              <p className="text-xs text-yellow-500/80 flex items-center gap-1">
-                <AlertCircle className="w-3 h-3" />
-                Algunos elementos tienen advertencias. Se importarán sin los campos inválidos.
-              </p>
+              <div className="text-xs text-yellow-500/80 flex flex-col gap-1">
+                <p className="flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" />
+                  Algunos elementos tienen advertencias. Se importarán sin los campos inválidos:
+                </p>
+                {rows
+                  .filter((r) => r.warnings.length > 0)
+                  .map((r) => (
+                    <p key={r.index} className="pl-4">
+                      Elemento {r.index + 1}: {r.warnings.join("; ")}
+                    </p>
+                  ))}
+              </div>
             )}
           </div>
         )}
