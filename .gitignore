@@ -11,6 +11,10 @@ out/
 .env.*.local
 .env.production
 
+# Firebase service account key (Admin SDK) — NEVER commit
+secrets/
+*firebase-service-account*.json
+
 # Vercel
 .vercel/
 
