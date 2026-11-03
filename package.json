@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "import-quotes": "node scripts/import-quotes-to-firebase.mjs",
+    "backfill-translations": "node scripts/backfill-quote-translations.mjs"
   },
   "dependencies": {
     "@next/third-parties": "16.2.3",
@@ -24,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "firebase-admin": "^13.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

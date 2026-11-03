@@ -102,3 +102,56 @@ Cómo se asigna `xs` desde el dashboard:
   y las marca como `xs` en una sola escritura. Por defecto solo toca las que no
   tienen tamaño; incluir las que ya son short/medium/long es opcional.
 - **Filtro "Caben en widget"** para revisar cuáles califican.
+
+## 6. Import automático de frases (Admin SDK, sin login)
+
+La tarea semanal de frases ("Frases anime semanales") no puede iniciar
+sesión con Google, así que para que suba sus lotes directo a Firebase sin
+que tengas que importarlos a mano desde `/admin`, usa el Admin SDK con una
+**service account**, que escribe sin pasar por las reglas de la sección 3
+(esas reglas solo aplican al SDK de cliente).
+
+**Generar la credencial (una sola vez):**
+
+1. Firebase Console → ⚙️ **Project settings** → **Service accounts**.
+2. **Generate new private key** → descarga el JSON.
+3. Guárdalo fuera de cualquier repo que subas a GitHub, por ejemplo en
+   `quote-anime/secrets/firebase-service-account.json` (esa carpeta ya
+   está en `.gitignore`, igual que cualquier archivo que contenga
+   `firebase-service-account` en el nombre). **Nunca lo commitees.**
+
+**Variables de entorno para los scripts:**
+
+```
+FIREBASE_SERVICE_ACCOUNT_KEY=/ruta/a/secrets/firebase-service-account.json
+FIREBASE_DATABASE_URL=https://quoteanime-76a76-default-rtdb.firebaseio.com
+```
+
+**Subir un lote nuevo:**
+
+```bash
+npm run import-quotes -- /ruta/al/lote-de-frases.json
+```
+
+Agrega `-- --dry-run` al final para ver qué importaría sin escribir nada.
+El script (`scripts/import-quotes-to-firebase.mjs`) valida cada frase
+(campos requeridos, `categories`, `size` incluyendo `xs`, formato de
+`animeSlug`) y **omite duplicados exactos** (mismo `anime` + `author` +
+`quote`), así que reimportar el mismo archivo no genera copias.
+
+**Completar `quoteEn`/`size` en frases que ya existen** (sin crear
+duplicados, a diferencia del botón "Asignar XS" que solo toca `size`):
+
+```bash
+npm run backfill-translations -- /ruta/al/lote-de-traducciones.json
+```
+
+Formato esperado: `[{ "id": "<key de Firebase>", "quoteEn": "...", "size": "xs" }, ...]`.
+
+Si cualquiera de los dos comandos falla (falta la credencial, sin red,
+datos inválidos), no escribe nada — el JSON original queda intacto para
+importar a mano desde `/admin` como respaldo.
+
+La service account tiene acceso total de lectura/escritura a toda la
+base, no solo a `quotes`/`imagenes`, así que trátala con el mismo cuidado
+que una contraseña: no la pegues en chats, issues ni commits.
