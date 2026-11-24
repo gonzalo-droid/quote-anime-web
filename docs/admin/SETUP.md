@@ -1,81 +1,28 @@
-# Panel /admin — guía de configuración
+# Datos de AnimeQuote en Firebase — esquema e imports
 
-El panel de administración de quotes vive en `/admin` (oculto, sin enlaces
-desde la web pública, con `robots: noindex` y `disallow` en `robots.ts`).
-Usa el mismo proyecto de Firebase Realtime Database que `dashboard-quote-anime`
-(nodos `quotes` e `imagenes`), así que ambos repos pueden coexistir mientras
-decides qué hacer con el dashboard original.
+El panel de administración de frases **ya no vive en este repo**. Se movió a
+Nekodojo:
 
-## 1. Variables de entorno
+- URL: <https://nekodojo.app/apps/animequote/admin> (el antiguo
+  `animequote.app/admin` redirige ahí con un 308).
+- Repo: `/Volumes/Neko/webs/neko-dojo`, carpeta `src/apps/animequote/admin/`.
+- Guía de configuración (variables, login con Google, allowlist):
+  `docs/animequote-admin/README.md` en ese repo.
 
-Copia `.env.local.example` a `.env.local` y completa los valores de Firebase
-(los mismos que usa `dashboard-quote-anime`) más el allowlist de correos:
+Aquí quedan el esquema de datos (contrato con la app móvil), los scripts de
+import con Admin SDK que usa la tarea semanal de frases y las reglas de la
+base de datos.
 
-```
-NEXT_PUBLIC_FIREBASE_API_KEY=...
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
-NEXT_PUBLIC_FIREBASE_DATABASE_URL=...
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
-NEXT_PUBLIC_FIREBASE_APP_ID=...
-NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS=gonzalo.lozg@gmail.com
-```
+## Reglas de Firebase Realtime Database (seguridad real)
 
-Si despliegas en Vercel, añade las mismas variables en
-**Project Settings → Environment Variables** del proyecto `quote-anime-web`.
+[`firebase-rtdb-rules.json`](./firebase-rtdb-rules.json) es la protección
+real de los nodos `quotes` e `imagenes` del proyecto `quoteanime-76a76`:
+lectura pública (la app móvil lee sin autenticarse) y escritura solo para una
+sesión de Firebase Auth con el email verificado autorizado. El allowlist del
+panel solo controla la UI. Para cambiarlas, pega el archivo en Firebase
+Console → **Realtime Database → Reglas** y publica.
 
-## 2. Habilitar Google como proveedor en Firebase Auth
-
-En Firebase Console → **Authentication → Sign-in method**, habilita el
-proveedor **Google** (si no lo estaba ya para este proyecto). Añade el
-dominio de producción `animequote.app` (y `localhost` para desarrollo) a
-**Authentication → Settings → Authorized domains**.
-
-## 3. Reglas de Firebase Realtime Database (seguridad real)
-
-El allowlist de `NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS` solo controla la UI: cierra
-la sesión de cualquier cuenta de Google no autorizada después de iniciar
-sesión. **No bloquea escrituras directas a la API de Firebase.** La
-protección real debe estar en las reglas de la base de datos.
-
-Pega el contenido de [`firebase-rtdb-rules.json`](./firebase-rtdb-rules.json)
-en Firebase Console → **Realtime Database → Reglas** y publica:
-
-```json
-{
-  "rules": {
-    "quotes": {
-      ".read": true,
-      ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'gonzalo.lozg@gmail.com'"
-    },
-    "imagenes": {
-      ".read": true,
-      ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'gonzalo.lozg@gmail.com'"
-    }
-  }
-}
-```
-
-- `.read: true` se mantiene público porque la app móvil de AnimeQuote lee
-  `quotes`/`imagenes` directamente desde el cliente, sin autenticarse.
-- `.write` solo permite escribir a una sesión de Firebase Auth cuyo email
-  verificado sea exactamente el correo autorizado.
-- Si en el futuro autorizas más cuentas, actualiza tanto
-  `NEXT_PUBLIC_ADMIN_ALLOWED_EMAILS` como esta regla (puedes usar
-  `auth.token.email in ['a@gmail.com', 'b@gmail.com']` si son varias).
-
-## 4. `dashboard-quote-anime` (repo original)
-
-Por ahora no se modifica. Las reglas de Firebase anteriores (si no
-restringían escritura) cambian para todo el proyecto de Firebase, así que
-una vez publiques las reglas de arriba, `dashboard-quote-anime` también
-necesitará que su usuario inicie sesión con Firebase Auth para poder
-escribir — hoy ese dashboard no tiene login, por lo que sus escrituras
-quedarían bloqueadas. Si sigues usando ese dashboard en paralelo, tenlo en
-cuenta antes de publicar las reglas.
-
-## 5. Esquema de una frase (`quotes/{id}`) — contrato con la app móvil
+## Esquema de una frase (`quotes/{id}`) — contrato con la app móvil
 
 | Campo        | Tipo                                   | Notas |
 |--------------|----------------------------------------|-------|
@@ -83,33 +30,34 @@ cuenta antes de publicar las reglas.
 | `author`     | string                                 | Requerido. |
 | `quote`      | string                                 | Requerido. Texto en **español**. Se mantiene como texto plano para que las versiones actuales de la app sigan funcionando. |
 | `quoteEn`    | string (opcional)                      | Traducción al **inglés**. Si falta, la app debe usar `quote`. |
-| `size`       | `"xs"` \| `"short"` \| `"medium"` \| `"long"` (opcional) | `xs` = cabe en el **widget del home** (máx. 60 caracteres en cada idioma; el dashboard lo valida). La app debe mostrar en ese widget solo frases `xs`. |
-| `categories` | string[] (opcional)                    | Ver `src/lib/categories.ts`. |
+| `size`       | `"xs"` \| `"short"` \| `"medium"` \| `"long"` (opcional) | `xs` = cabe en el **widget del home** (máx. 60 caracteres en cada idioma; el panel lo valida). La app debe mostrar en ese widget solo frases `xs`. |
+| `categories` | string[] (opcional)                    | Lista en `src/apps/animequote/admin/lib/categories.ts` (Nekodojo) y copia en `ALLOWED_CATEGORIES` de `scripts/import-quotes-to-firebase.mjs` (aquí); si cambia, actualiza ambas. |
 | `animeSlug`  | string (opcional)                      | Clave en el nodo `imagenes`. |
 
 El límite de 60 caracteres vive en `HOME_WIDGET_MAX_CHARS`
-(`src/lib/quoteSize.ts`); si cambia el diseño del widget, actualízalo ahí.
+(`src/apps/animequote/admin/lib/quoteSize.ts` en Nekodojo); si cambia el
+diseño del widget, actualízalo ahí.
 
 Los tamaños son ordenados (`xs` < `short` < `medium` < `long`): donde la app
 hoy filtra `size == "short"` (widget de la pantalla de bloqueo), debería
 aceptar también `xs`, porque una frase XS también es corta.
 
-Cómo se asigna `xs` desde el dashboard:
+Cómo se asigna `xs` desde el panel:
 - **Import de JSON:** si una frase no trae `size` (o trae uno inválido) y cabe
   en el widget, se guarda como `xs` automáticamente. Un `size` válido explícito
   se respeta.
-- **Botón "Asignar XS"** en `/admin`: recorre las frases existentes que caben
-  y las marca como `xs` en una sola escritura. Por defecto solo toca las que no
-  tienen tamaño; incluir las que ya son short/medium/long es opcional.
+- **Botón "Asignar XS"**: recorre las frases existentes que caben y las marca
+  como `xs` en una sola escritura. Por defecto solo toca las que no tienen
+  tamaño; incluir las que ya son short/medium/long es opcional.
 - **Filtro "Caben en widget"** para revisar cuáles califican.
 
-## 6. Import automático de frases (Admin SDK, sin login)
+## Import automático de frases (Admin SDK, sin login)
 
 La tarea semanal de frases ("Frases anime semanales") no puede iniciar
 sesión con Google, así que para que suba sus lotes directo a Firebase sin
-que tengas que importarlos a mano desde `/admin`, usa el Admin SDK con una
-**service account**, que escribe sin pasar por las reglas de la sección 3
-(esas reglas solo aplican al SDK de cliente).
+que tengas que importarlos a mano desde el panel, usa el Admin SDK con una
+**service account**, que escribe sin pasar por las reglas de arriba (esas
+reglas solo aplican al SDK de cliente).
 
 **Generar la credencial (una sola vez):**
 
@@ -150,7 +98,7 @@ Formato esperado: `[{ "id": "<key de Firebase>", "quoteEn": "...", "size": "xs" 
 
 Si cualquiera de los dos comandos falla (falta la credencial, sin red,
 datos inválidos), no escribe nada — el JSON original queda intacto para
-importar a mano desde `/admin` como respaldo.
+importar a mano desde el panel de Nekodojo como respaldo.
 
 La service account tiene acceso total de lectura/escritura a toda la
 base, no solo a `quotes`/`imagenes`, así que trátala con el mismo cuidado
